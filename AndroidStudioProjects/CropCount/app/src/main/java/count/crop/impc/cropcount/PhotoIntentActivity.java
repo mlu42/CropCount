@@ -139,24 +139,24 @@ public class PhotoIntentActivity extends Activity {
 
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-		switch(actionCode) {
-		case ACTION_TAKE_PHOTO_B:
-			File f = null;
-			
-			try {
-				f = setUpPhotoFile();
-				mCurrentPhotoPath = f.getAbsolutePath();
-				takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-			} catch (IOException e) {
-				e.printStackTrace();
-				f = null;
-				mCurrentPhotoPath = null;
-			}
-			break;
-
-		default:
-			break;			
-		} // switch
+//		switch(actionCode) {
+//		case ACTION_TAKE_PHOTO_B:
+//			File f = null;
+//
+//			try {
+//				f = setUpPhotoFile();
+//				mCurrentPhotoPath = f.getAbsolutePath();
+//				takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//				f = null;
+//				mCurrentPhotoPath = null;
+//			}
+//			break;
+//
+//		default:
+//			break;
+//		} // switch
 
 		startActivityForResult(takePictureIntent, actionCode);
 	}
@@ -183,7 +183,6 @@ public class PhotoIntentActivity extends Activity {
 	}
 
 
-
 	Button.OnClickListener mTakePicOnClickListener = 
 		new Button.OnClickListener() {
 		@Override
@@ -208,6 +207,7 @@ public class PhotoIntentActivity extends Activity {
 		setContentView(R.layout.main);
 
 		mImageView = (ImageView) findViewById(R.id.imageView1);
+        mImageafterEffect = (ImageView) findViewById(R.id.imageView2);
 
 		mImageBitmap = null;
 

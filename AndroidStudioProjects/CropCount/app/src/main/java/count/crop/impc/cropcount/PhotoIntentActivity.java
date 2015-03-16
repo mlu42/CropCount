@@ -1,6 +1,7 @@
 package count.crop.impc.cropcount;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -36,12 +37,15 @@ public class PhotoIntentActivity extends Activity {
 
 	private static final String BITMAP_STORAGE_KEY = "viewbitmap";
 	private static final String IMAGEVIEW_VISIBILITY_STORAGE_KEY = "imageviewvisibility";
+
 	private ImageView mImageView;
 	private Bitmap mImageBitmap;
+
     private ImageView mImageafterEffect;
     private TextView mPercentage;
 
 	private String mCurrentPhotoPath;
+
 
 	private static final String JPEG_FILE_PREFIX = "IMG_";
 	private static final String JPEG_FILE_SUFFIX = ".jpg";
@@ -94,6 +98,8 @@ public class PhotoIntentActivity extends Activity {
 		
 		return f;
 	}
+
+    //how to get real screensize in run time?
     private int targetW = 700;
     private int targetH = 700;
 
@@ -122,10 +128,9 @@ public class PhotoIntentActivity extends Activity {
                         // Here you can get the size :)
                         targetW = mImageView.getWidth();
                         targetH = mImageView.getHeight();
-                        Log.v("targetDimInsidehere", mImageView.getWidth()+" "+ mImageView.getHeight());
+                        Log.v("target Dim Inside here", mImageView.getWidth()+" "+ mImageView.getHeight());
                     }
                     });
-
 
 
 
@@ -157,11 +162,16 @@ public class PhotoIntentActivity extends Activity {
 		mImageView.setVisibility(View.VISIBLE);
 
         //set the second image
+        setAfterEffectImage(bitmap);
+
+
+	}
+
+    private void setAfterEffectImage(Bitmap bitmap){
         Bitmap bitmapAF = doColorFilter(bitmap, 0, 100, 0);
         mImageafterEffect.setImageBitmap(bitmapAF);
         mImageafterEffect.setVisibility(View.VISIBLE);
-
-	}
+    }
 
 	private void galleryAddPic() {
 		    Intent mediaScanIntent = new Intent("android.intent.action.MEDIA_SCANNER_SCAN_FILE");
@@ -187,10 +197,12 @@ public class PhotoIntentActivity extends Activity {
 				e.printStackTrace();
 				f = null;
 				mCurrentPhotoPath = null;
+
 			}
+
+            startActivityForResult(takePictureIntent, actionCode);
 			break;
             case ACTION_PICK_FROM_GALLERY:
-
 
 
             break;
@@ -199,7 +211,7 @@ public class PhotoIntentActivity extends Activity {
 			break;
 		} // switch
 
-		startActivityForResult(takePictureIntent, actionCode);
+
 	}
 
 
@@ -210,12 +222,21 @@ public class PhotoIntentActivity extends Activity {
 		if (mCurrentPhotoPath != null) {
 			setPic();
 			galleryAddPic();
-            //fill the aftereffect imageview
 
 			mCurrentPhotoPath = null;
 		}
 
 	}
+
+
+//    public String getPath(Uri uri) {
+//        String[] projection = { MediaStore.Images.Media.DATA };
+//        Cursor cursor = managedQuery(uri, projection, null, null, null);
+//        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//        cursor.moveToFirst();
+//        return cursor.getString(column_index);
+//    }
+
 
 
 	Button.OnClickListener mTakePicOnClickListener = 
@@ -226,13 +247,14 @@ public class PhotoIntentActivity extends Activity {
 		}
 	};
 
-	Button.OnClickListener mTakePicSOnClickListener = 
-		new Button.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			dispatchTakePictureIntent(ACTION_PICK_FROM_GALLERY);
-		}
-	};
+//	Button.OnClickListener mTakePicSOnClickListener =
+//		new Button.OnClickListener() {
+//		@Override
+//		public void onClick(View v) {
+//			dispatchTakePictureIntent(ACTION_PICK_FROM_GALLERY);
+//		}
+//	};
+
 
 
 	/** Called when the activity is first created. */
@@ -256,12 +278,19 @@ public class PhotoIntentActivity extends Activity {
 				MediaStore.ACTION_IMAGE_CAPTURE
 		);
 
-		Button picSBtn = (Button) findViewById(R.id.btnIntendS);
-		setBtnListenerOrDisable( 
-				picSBtn, 
-				mTakePicSOnClickListener,
-				MediaStore.ACTION_IMAGE_CAPTURE
-		);
+		//Button picSBtn = (Button) findViewById(R.id.btnIntendS);
+
+        ((Button) findViewById(R.id.btnIntendS))
+                .setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View arg0) {
+                        Intent intent = new Intent();
+                        intent.setType("image/*");
+
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent,
+                                "Select Picture"), ACTION_PICK_FROM_GALLERY);
+                    }
+                });
 
 
 		
@@ -283,31 +312,44 @@ public class PhotoIntentActivity extends Activity {
 		} // ACTION_TAKE_PHOTO_B
 
 		case ACTION_PICK_FROM_GALLERY: {
-            Uri photoUri = data.getData();
-			if (resultCode == RESULT_OK && photoUri != null) {
 
-                String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                Cursor cursor = getContentResolver().query(photoUri, filePathColumn, null, null, null);
-                cursor.moveToFirst();
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                String filePath = cursor.getString(columnIndex);
-                cursor.close();
+			if (resultCode == RESULT_OK && data != null) {
+                ContentResolver r = getApplicationContext().getContentResolver();
+                    Uri selectedImageUri = data.getData();
+                    mCurrentPhotoPath = getPath(selectedImageUri, r);
 
-                Log.v("Load Image", "Gallery File Path=====>>>"+filePath);
-                //image_list.add(filePath);
-                //Log.v("Load Image", "Image List Size=====>>>"+image_list.size());
-
-                //updateImageTable();
-                //new GetImages().execute();
-
+                    System.out.println("Image Path : " + mCurrentPhotoPath);
+                    setPic();
+                    mImageView.setImageURI(selectedImageUri);
 
 			}
 			break;
-		} // ACTION_TAKE_PHOTO_S
+		} // ACTION_PICK_FROM_GALLERY
 
 
 		} // switch
 	}
+
+
+    /**
+     * Gets the corresponding path to a file from the given content:// URI
+     * @param selectedVideoUri The content:// URI to find the file path from
+     * @param contentResolver The content resolver to use to perform the query.
+     * @return the file path as a string
+     */
+    private String getPath(Uri selectedVideoUri,
+                           ContentResolver contentResolver) {
+        String filePath;
+        String[] filePathColumn = {MediaStore.MediaColumns.DATA};
+
+        Cursor cursor = contentResolver.query(selectedVideoUri, filePathColumn, null, null, null);
+        cursor.moveToFirst();
+
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        filePath = cursor.getString(columnIndex);
+        cursor.close();
+        return filePath;
+    }
 
 	// Some lifecycle callbacks so that the image can survive orientation change
 	@Override

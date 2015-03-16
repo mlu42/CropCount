@@ -19,15 +19,36 @@
         android:layout_weight="1" />
 
   </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:padding="20dp"
+        >
   <ImageView 
       android:layout_height="wrap_content" 
       android:layout_width="wrap_content" 
       android:visibility="visible"
+      android:padding="10dp"
+      android:layout_weight="1"
       android:id="@+id/imageView1" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="30dp"
+                android:id="@+id/greenPercentage"
+                android:textAlignment="center"
+                android:gravity="center"
+                />
     <ImageView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:visibility="visible"
+        android:padding="10dp"
+        android:layout_weight="1"
         android:id="@+id/imageView2" />
+
+</LinearLayout>
 
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -15,11 +16,14 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -28,13 +32,14 @@ import java.util.List;
 public class PhotoIntentActivity extends Activity {
 
 	private static final int ACTION_TAKE_PHOTO_B = 1;
-	private static final int ACTION_TAKE_PHOTO_S = 2;
+	private static final int ACTION_PICK_FROM_GALLERY = 2;
 
 	private static final String BITMAP_STORAGE_KEY = "viewbitmap";
 	private static final String IMAGEVIEW_VISIBILITY_STORAGE_KEY = "imageviewvisibility";
 	private ImageView mImageView;
 	private Bitmap mImageBitmap;
     private ImageView mImageafterEffect;
+    private TextView mPercentage;
 
 	private String mCurrentPhotoPath;
 
@@ -89,6 +94,9 @@ public class PhotoIntentActivity extends Activity {
 		
 		return f;
 	}
+    private int targetW = 700;
+    private int targetH = 700;
+
 
 	private void setPic() {
 
@@ -96,8 +104,30 @@ public class PhotoIntentActivity extends Activity {
 		/* So pre-scale the target bitmap into which the file is decoded */
 
 		/* Get the size of the ImageView */
-		int targetW = mImageView.getWidth();
-		int targetH = mImageView.getHeight();
+
+        mImageView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+
+                    @SuppressWarnings("deprecation")
+                    @Override
+                    public void onGlobalLayout() {
+
+                        // Ensure you call it only once :
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                            mImageView.getViewTreeObserver().removeOnGlobalLayoutListener((ViewTreeObserver.OnGlobalLayoutListener) this);
+                        } else {
+                            mImageView.getViewTreeObserver().removeGlobalOnLayoutListener((ViewTreeObserver.OnGlobalLayoutListener) this);
+                        }
+
+                        // Here you can get the size :)
+                        targetW = mImageView.getWidth();
+                        targetH = mImageView.getHeight();
+                        Log.v("targetDimInsidehere", mImageView.getWidth()+" "+ mImageView.getHeight());
+                    }
+                    });
+
+
+
 
 		/* Get the size of the image */
 		BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -107,6 +137,7 @@ public class PhotoIntentActivity extends Activity {
 		int photoH = bmOptions.outHeight;
 		
 		/* Figure out which way needs to be reduced less */
+        Log.v("targetDim", targetH+" "+ targetW);
 		int scaleFactor = 1;
 		if ((targetW > 0) || (targetH > 0)) {
 			scaleFactor = Math.min(photoW/targetW, photoH/targetH);	
@@ -125,6 +156,11 @@ public class PhotoIntentActivity extends Activity {
 
 		mImageView.setVisibility(View.VISIBLE);
 
+        //set the second image
+        Bitmap bitmapAF = doColorFilter(bitmap, 0, 100, 0);
+        mImageafterEffect.setImageBitmap(bitmapAF);
+        mImageafterEffect.setVisibility(View.VISIBLE);
+
 	}
 
 	private void galleryAddPic() {
@@ -139,44 +175,43 @@ public class PhotoIntentActivity extends Activity {
 
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-//		switch(actionCode) {
-//		case ACTION_TAKE_PHOTO_B:
-//			File f = null;
-//
-//			try {
-//				f = setUpPhotoFile();
-//				mCurrentPhotoPath = f.getAbsolutePath();
-//				takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//				f = null;
-//				mCurrentPhotoPath = null;
-//			}
-//			break;
-//
-//		default:
-//			break;
-//		} // switch
+		switch(actionCode) {
+		case ACTION_TAKE_PHOTO_B:
+			File f = null;
+
+			try {
+				f = setUpPhotoFile();
+				mCurrentPhotoPath = f.getAbsolutePath();
+				takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+			} catch (IOException e) {
+				e.printStackTrace();
+				f = null;
+				mCurrentPhotoPath = null;
+			}
+			break;
+            case ACTION_PICK_FROM_GALLERY:
+
+
+
+            break;
+
+		default:
+			break;
+		} // switch
 
 		startActivityForResult(takePictureIntent, actionCode);
 	}
 
 
 
-	private void handleSmallCameraPhoto(Intent intent) {
-		Bundle extras = intent.getExtras();
-		mImageBitmap = (Bitmap) extras.get("data");
-		mImageView.setImageBitmap(mImageBitmap);
-
-		mImageView.setVisibility(View.VISIBLE);
-
-	}
 
 	private void handleBigCameraPhoto() {
 
 		if (mCurrentPhotoPath != null) {
 			setPic();
 			galleryAddPic();
+            //fill the aftereffect imageview
+
 			mCurrentPhotoPath = null;
 		}
 
@@ -195,7 +230,7 @@ public class PhotoIntentActivity extends Activity {
 		new Button.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			dispatchTakePictureIntent(ACTION_TAKE_PHOTO_S);
+			dispatchTakePictureIntent(ACTION_PICK_FROM_GALLERY);
 		}
 	};
 
@@ -208,6 +243,8 @@ public class PhotoIntentActivity extends Activity {
 
 		mImageView = (ImageView) findViewById(R.id.imageView1);
         mImageafterEffect = (ImageView) findViewById(R.id.imageView2);
+        mPercentage = (TextView) findViewById(R.id.greenPercentage);
+
 
 		mImageBitmap = null;
 
@@ -245,9 +282,25 @@ public class PhotoIntentActivity extends Activity {
 			break;
 		} // ACTION_TAKE_PHOTO_B
 
-		case ACTION_TAKE_PHOTO_S: {
-			if (resultCode == RESULT_OK) {
-				handleSmallCameraPhoto(data);
+		case ACTION_PICK_FROM_GALLERY: {
+            Uri photoUri = data.getData();
+			if (resultCode == RESULT_OK && photoUri != null) {
+
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Cursor cursor = getContentResolver().query(photoUri, filePathColumn, null, null, null);
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String filePath = cursor.getString(columnIndex);
+                cursor.close();
+
+                Log.v("Load Image", "Gallery File Path=====>>>"+filePath);
+                //image_list.add(filePath);
+                //Log.v("Load Image", "Image List Size=====>>>"+image_list.size());
+
+                //updateImageTable();
+                //new GetImages().execute();
+
+
 			}
 			break;
 		} // ACTION_TAKE_PHOTO_S
@@ -321,6 +374,7 @@ public class PhotoIntentActivity extends Activity {
      * process the image and give green filter*/
     private Bitmap doColorFilter(Bitmap src, double red, double green, double blue){
 
+        int greenCount = 0;
         // image size
         int width = src.getWidth();
         int height = src.getHeight();
@@ -335,20 +389,74 @@ public class PhotoIntentActivity extends Activity {
             for(int y = 0; y < height; ++y) {
                 // get pixel color
                 pixel = src.getPixel(x, y);
-                // apply filtering on each channel R, G, B
+                //count green
                 A = Color.alpha(pixel);
-                R = (int)(Color.red(pixel) * red);
-                G = (int)(Color.green(pixel) * green);
-                B = (int)(Color.blue(pixel) * blue);
+                R = (int)(Color.red(pixel));
+                G = (int)(Color.green(pixel));
+                B = (int)(Color.blue(pixel));
+
+                if(R+B < G/2 || (G>220 &&(B<150 && R<150))){
+                    greenCount++;
+
+                    R=0;
+                    G=255;
+                    B=0;
+
+                }else{
+                    R=0;
+                    G=0;
+                    B=0;
+                }
+
                 // set new color pixel to output bitmap
                 bmOut.setPixel(x, y, Color.argb(A, R, G, B));
+
             }
         }
+
+        //display count;
+        double greenPercentage = (double)greenCount/(double)(width*height);
+        DecimalFormat df = new DecimalFormat("#.00");
+        mPercentage.setText("The percentage of Green in the picture is: " + df.format(greenPercentage) +"%");
+
 
         // return final image
         return bmOut;
 
     }
+
+//    public class GetImages extends AsyncTask<Void, Void, Void>
+//    {
+//        public ProgressDialog progDialog=null;
+//
+//        protected void onPreExecute()
+//        {
+//            progDialog=ProgressDialog.show(context, "", "Loading...",true);
+//        }
+//        @Override
+//        protected Void doInBackground(Void... params)
+//        {
+//            image_drawable.clear();
+//            for(int i=0; i<image_list.size(); i++)
+//            {
+//                Bitmap bitmap = BitmapFactory.decodeFile(image_list.get(i).toString().trim());
+//                bitmap = Bitmap.createScaledBitmap(bitmap,500, 500, true);
+//                Drawable d=loadImagefromurl(bitmap);
+//
+//                image_drawable.add(d);
+//            }
+//            return null;
+//        }
+//
+//        protected void onPostExecute(Void result)
+//        {
+//            if(progDialog.isShowing())
+//            {
+//                progDialog.dismiss();
+//            }
+//            updateImageTable();
+//        }
+//    }
 
 
 }

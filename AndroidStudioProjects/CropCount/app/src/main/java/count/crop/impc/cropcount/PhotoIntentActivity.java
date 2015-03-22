@@ -1,7 +1,7 @@
 package count.crop.impc.cropcount;
 
 import android.app.Activity;
-import android.content.ContentResolver;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,6 +23,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -44,7 +46,9 @@ public class PhotoIntentActivity extends Activity {
     private ImageView mImageafterEffect;
     private TextView mPercentage;
 
-	private String mCurrentPhotoPath;
+	private String mCurrentPhotoPath = "";
+
+    private Context context=null;
 
 
 	private static final String JPEG_FILE_PREFIX = "IMG_";
@@ -133,7 +137,6 @@ public class PhotoIntentActivity extends Activity {
                     });
 
 
-
 		/* Get the size of the image */
 		BitmapFactory.Options bmOptions = new BitmapFactory.Options();
 		bmOptions.inJustDecodeBounds = true;
@@ -156,18 +159,20 @@ public class PhotoIntentActivity extends Activity {
 		/* Decode the JPEG file into a Bitmap */
 		Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
 		
-		/* Associate the Bitmap to the ImageView */
-		mImageView.setImageBitmap(bitmap);
 
-		mImageView.setVisibility(View.VISIBLE);
+        //set the  image
+        mImageBitmap = bitmap;
 
-        //set the second image
         setAfterEffectImage(bitmap);
 
 
 	}
 
     private void setAfterEffectImage(Bitmap bitmap){
+        /* Associate the Bitmap to the ImageView */
+        mImageView.setImageBitmap(bitmap);
+        mImageView.setVisibility(View.VISIBLE);
+
         Bitmap bitmapAF = doColorFilter(bitmap, 0, 100, 0);
         mImageafterEffect.setImageBitmap(bitmapAF);
         mImageafterEffect.setVisibility(View.VISIBLE);
@@ -205,6 +210,7 @@ public class PhotoIntentActivity extends Activity {
             case ACTION_PICK_FROM_GALLERY:
 
 
+
             break;
 
 		default:
@@ -213,8 +219,6 @@ public class PhotoIntentActivity extends Activity {
 
 
 	}
-
-
 
 
 	private void handleBigCameraPhoto() {
@@ -228,16 +232,10 @@ public class PhotoIntentActivity extends Activity {
 
 	}
 
-
-//    public String getPath(Uri uri) {
-//        String[] projection = { MediaStore.Images.Media.DATA };
-//        Cursor cursor = managedQuery(uri, projection, null, null, null);
-//        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//        cursor.moveToFirst();
-//        return cursor.getString(column_index);
-//    }
+    private void handleFromGallery(){
 
 
+    }
 
 	Button.OnClickListener mTakePicOnClickListener = 
 		new Button.OnClickListener() {
@@ -246,14 +244,6 @@ public class PhotoIntentActivity extends Activity {
 			dispatchTakePictureIntent(ACTION_TAKE_PHOTO_B);
 		}
 	};
-
-//	Button.OnClickListener mTakePicSOnClickListener =
-//		new Button.OnClickListener() {
-//		@Override
-//		public void onClick(View v) {
-//			dispatchTakePictureIntent(ACTION_PICK_FROM_GALLERY);
-//		}
-//	};
 
 
 
@@ -267,7 +257,7 @@ public class PhotoIntentActivity extends Activity {
         mImageafterEffect = (ImageView) findViewById(R.id.imageView2);
         mPercentage = (TextView) findViewById(R.id.greenPercentage);
 
-
+        context = this;
 		mImageBitmap = null;
 
 
@@ -283,7 +273,7 @@ public class PhotoIntentActivity extends Activity {
         ((Button) findViewById(R.id.btnIntendS))
                 .setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
-                        Intent intent = new Intent();
+                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                         intent.setType("image/*");
 
                         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -314,15 +304,17 @@ public class PhotoIntentActivity extends Activity {
 		case ACTION_PICK_FROM_GALLERY: {
 
 			if (resultCode == RESULT_OK && data != null) {
-                ContentResolver r = getApplicationContext().getContentResolver();
-                    Uri selectedImageUri = data.getData();
-                    mCurrentPhotoPath = getPath(selectedImageUri, r);
 
-                    System.out.println("Image Path : " + mCurrentPhotoPath);
-                    setPic();
-                    mImageView.setImageURI(selectedImageUri);
+                Uri selectedImageUri = data.getData();
+                mCurrentPhotoPath = getPath(selectedImageUri);
+                Log.v("image path-------->", mCurrentPhotoPath);
 
-			}
+                setPic();
+                //new GetImages().execute();
+            }
+
+
+
 			break;
 		} // ACTION_PICK_FROM_GALLERY
 
@@ -330,33 +322,47 @@ public class PhotoIntentActivity extends Activity {
 		} // switch
 	}
 
+    private String getPath(Uri uri) {
 
-    /**
-     * Gets the corresponding path to a file from the given content:// URI
-     * @param selectedVideoUri The content:// URI to find the file path from
-     * @param contentResolver The content resolver to use to perform the query.
-     * @return the file path as a string
-     */
-    private String getPath(Uri selectedVideoUri,
-                           ContentResolver contentResolver) {
-        String filePath;
-        String[] filePathColumn = {MediaStore.MediaColumns.DATA};
+        String realPath;
+        // SDK < API11
+        if (Build.VERSION.SDK_INT < 11)
+            realPath = RealPathUtil.getRealPathFromURI_BelowAPI11(this,uri);
 
-        Cursor cursor = contentResolver.query(selectedVideoUri, filePathColumn, null, null, null);
-        cursor.moveToFirst();
+            // SDK >= 11 && SDK < 19
+        else if (Build.VERSION.SDK_INT < 19)
+            realPath = RealPathUtil.getRealPathFromURI_API11to18(this, uri);
 
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        filePath = cursor.getString(columnIndex);
-        cursor.close();
-        return filePath;
+            // SDK > 19 (Android 4.4)
+        else
+            realPath = RealPathUtil.getRealPathFromURI_API19(this, uri);
+
+
+        return realPath;
     }
+
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
 
 	// Some lifecycle callbacks so that the image can survive orientation change
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putParcelable(BITMAP_STORAGE_KEY, mImageBitmap);
 
-		outState.putBoolean(IMAGEVIEW_VISIBILITY_STORAGE_KEY, (mImageBitmap != null) );
+		outState.putBoolean(IMAGEVIEW_VISIBILITY_STORAGE_KEY, (mImageBitmap != null));
 
 		super.onSaveInstanceState(outState);
 	}
@@ -467,38 +473,38 @@ public class PhotoIntentActivity extends Activity {
 
     }
 
-//    public class GetImages extends AsyncTask<Void, Void, Void>
-//    {
-//        public ProgressDialog progDialog=null;
-//
-//        protected void onPreExecute()
-//        {
-//            progDialog=ProgressDialog.show(context, "", "Loading...",true);
-//        }
-//        @Override
-//        protected Void doInBackground(Void... params)
-//        {
-//            image_drawable.clear();
-//            for(int i=0; i<image_list.size(); i++)
-//            {
-//                Bitmap bitmap = BitmapFactory.decodeFile(image_list.get(i).toString().trim());
-//                bitmap = Bitmap.createScaledBitmap(bitmap,500, 500, true);
-//                Drawable d=loadImagefromurl(bitmap);
-//
-//                image_drawable.add(d);
-//            }
-//            return null;
-//        }
-//
-//        protected void onPostExecute(Void result)
-//        {
-//            if(progDialog.isShowing())
-//            {
-//                progDialog.dismiss();
-//            }
-//            updateImageTable();
-//        }
-//    }
+
+
+
+    public class GetImages extends AsyncTask<Void, Void, Void>
+    {
+        public ProgressDialog progDialog=null;
+
+        protected void onPreExecute()
+        {
+            progDialog=ProgressDialog.show(context, "", "Start",true);
+        }
+        @Override
+        protected Void doInBackground(Void... params)
+        {
+//              Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
+//              bitmap = Bitmap.createScaledBitmap(bitmap,500, 500, true);
+              progDialog=ProgressDialog.show(context, "", "Loading...",true);
+              setPic();
+
+
+            return null;
+        }
+
+        protected void onPostExecute(Void result)
+        {
+            if(progDialog.isShowing())
+            {
+                progDialog.dismiss();
+            }
+
+        }
+    }
 
 
 }

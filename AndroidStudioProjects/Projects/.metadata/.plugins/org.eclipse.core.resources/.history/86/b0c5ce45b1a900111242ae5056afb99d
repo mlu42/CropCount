@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <string name="hello">Hello World, Calculator!</string>
+    <string name="app_name">Corn N Rate Calculator</string>
+    <string name="input_1">Fertilizer $/ton</string>
+    <string name="input_2">% Nitrogen</string>
+    <string name="input_3">Corn $/bushel</string>
+    <string name="input_1_hint">Price</string>
+    <string name="input_2_hint">% N</string>
+    <string name="input_3_hint">Price</string>
+    <string name="percent_n_pound">Price of nitrogen \n per pound</string>
+    <string name="n_corn_ratio">N:Corn Ratio</string>
+
+</resources>

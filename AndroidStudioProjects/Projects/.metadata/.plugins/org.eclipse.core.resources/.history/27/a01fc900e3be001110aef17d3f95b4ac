@@ -1,0 +1,13 @@
+package ipcm.calc.nprice;
+
+import java.util.ArrayList;
+
+import android.widget.TextView;
+
+public class RadioGroup {
+
+	private ArrayList<TextView> buttons;
+	
+	private int set = -1;
+	
+}

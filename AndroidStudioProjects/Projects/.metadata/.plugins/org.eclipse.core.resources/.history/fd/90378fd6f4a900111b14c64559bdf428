@@ -1,0 +1,42 @@
+package ipcm.calc.nrate;
+
+import android.widget.TextView;
+
+/*
+ * A three state toggle button class for use in the
+ * Calculator activity of this app. I will program
+ * this class specifically for TextViews as that is
+ * what I'll be using it for. If it needs to be
+ * programmed more generically, that can be done.
+ */
+
+public class ThreeStateToggle {
+	
+	// Instance Variables
+	private TextView left;		// The first TextView 
+	private TextView middle;	// The middle TextView
+	private TextView right;		// The last TextView
+	private boolean leftSet;
+	private boolean middleSet;
+	private boolean rightSet;
+	
+	// The empty constructor
+	public ThreeStateToggle()
+	{
+		left = null;
+		middle = null;
+		right = null;
+	}
+	
+	// The main constructor. Takes three TextView arguments
+	public ThreeStateToggle(TextView a, TextView b, TextView c)
+	{
+		left = a;
+		middle = b;
+		right = c;
+		leftSet = true;
+		middleSet = false;
+		rightSet = false;
+	}
+	
+}

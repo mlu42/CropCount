@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;DataHelper.java&apos; to &apos;IPM Toolkit/src/ipcm.tool.kit&apos;&#x0D;&#x0A;- Original project: &apos;N Price Calculator&apos;&#x0D;&#x0A;- Destination element: &apos;IPM Toolkit/src/ipcm.tool.kit&apos;&#x0D;&#x0A;- Original element: &apos;ipcm.calc.nprice.DataHelper.java&apos;" description="Copy compilation unit" destination="=IPM Toolkit/src&lt;ipcm.tool.kit" element1="/src&lt;ipcm.calc.nprice{DataHelper.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1343920609865" units="1" version="1.0"/>
+</session>

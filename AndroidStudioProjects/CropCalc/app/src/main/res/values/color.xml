@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!-- This XML file defines default colors to be used in the app. -->
+    
+    <color name="white">#FFFF</color>								<!-- A simple white -->
+    <color name="black">#F000</color>								<!-- A simple black -->
+    <color name="dark_grey">#444</color>
+    <color name="light_grey">#AAA</color>
+    <color name="green_dark">#FF669900</color>		<!-- A dark green as found in the Android design guidelines -->
+    <color name="green_light">#FF8ABD00</color>	<!-- A lighter green as found in the Android design guidelines -->
+    <color name="grey_ccc">#FFCCCCCC</color>
+    <color name="grey_ddd">#FFDDDDDD</color>
+    <color name="grey_eee">#FFEEEEEE</color>
+    <color name="green_good">#ff59d700</color>
+    <color name="red_bad">#ffd71700</color>
+    <color name="green_good_light">#ff58f000</color>
+    <color name="red_bad_light">#fff01d00</color>
+    <color name="wood_color">#663300</color>
+
+    <color name="dark_green">#006400</color>
+    <color name="actionbar_background">#006400</color>
+
+
+
+
+    
+</resources>

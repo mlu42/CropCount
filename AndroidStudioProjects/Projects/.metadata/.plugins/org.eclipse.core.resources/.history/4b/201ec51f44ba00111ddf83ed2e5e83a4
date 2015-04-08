@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!-- This XML file defines default strings to be used in the app. -->    
+    
+    <string name="app_name">Corn N Rate Calculator</string>							<!-- The name of the app used by the Android OS -->
+    <string name="input_1">Fertilizer $/ton</string>								<!-- The label that goes with the fertilizer price input -->
+    <string name="input_2">% N</string>												<!-- The label that goes with the N percent input -->
+    <string name="input_3">Corn $/bu</string>										<!-- The label that goes with the corn price input -->
+    <string name="input_1_hint">$0</string>											<!-- The hint for the fertilizer price input -->
+    <string name="input_2_hint">0%</string>											<!-- The hint for the N percent input -->
+    <string name="input_3_hint">$0.00</string>										<!-- The hint for the corn price input -->
+    <string name="percent_n_pound">$/lb N =</string>								<!-- The label for the nitrogen price calculated field -->
+    <string name="n_corn_ratio">N:Corn =</string>									<!-- The label for the N:Corn ratio calculated field -->
+    <string name="soil_yield_header">Soil yield potential or type</string>			<!-- The header over the yield potential picker -->
+    <string name="high_yield">High</string>											<!-- The label for the first field in the yield potential picker -->
+    <string name="medium_yield">Medium</string>										<!-- The label for the second field in the yield potential picker -->
+    <string name="sands_yield">Sands</string>										<!-- The label for the third field in the yield potential picker -->
+    <string name="previous_crop_header">Previous crop planted</string>				<!-- The header over the previous crop picker -->
+    <string name="high_medium_left">Corn, Veggies,\nForage legumes</string>			<!-- The label for the first field in the previous crop picker to be shown when either of the first two yields are selected -->
+    <string name="high_medium_right">Soybeans,\nSmall grains</string>				<!-- The label for the second field in the previous crop picker to be shown when either of the first two yields are selected -->
+    <string name="sands_left">Irrigated</string>									<!-- The label for the first field in the previous crop picker to be shown when the third field is selected -->
+    <string name="sands_right">Non-Irrigated</string>								<!-- The label for the second field in the previous crop picker to be shown when the third field is selected -->
+    <string name="output_header">Lb N/acre (before subtracting N credits)</string>	<!-- The header to be shown in the result box -->
+    <string name="dash">-</string>													<!-- A dash -->
+    <string name="text_header">Text:</string>										<!-- The label next to the subject input in the Email activity -->
+    <string name="subject_header">Subject:</string>									<!-- The label next to the body input in the Email activity -->
+    <string name="result_default">-</string>										<!-- The default result to show when a result has not been calculated yet -->
+    <string name="range_default"/>													<!-- The default range to show when a result has not been calculated yet -->
+	<string name="subject">Subject</string>											<!-- The hint for the subject line in the Email activity -->
+	<string name="body_text">Text</string>											<!-- The hint for the body text in the Email activity -->
+	<string name="okay">Send</string>												<!-- The text for the button in the Email activity -->
+	<string name="info">Info</string>												<!-- The info label for the context menu -->
+	<string name="info_text">This app was developed by the UW-Madison Nutrient and Pest Management (NPM) program. We would like to acknowledge the following individuals who helped on this project:\n\n
+	    					 Roger Schmidt, NPM Computer Specialist\n\n
+	    					 Carrie Laboski, Associate Professor, Department of Soil Science, University of Wisconsin-Madison\n\n
+	    					 Ramsey Statz, NPM Computer Programmer\n\n
+	    					 John Schmidt, NPM Computer Programmer</string>
+	<string name ="copyright_text">http://ipcm.wisc.edu\n\n
+	    						   &#169; 2012 Board of Regents of the University of Wisconsin System</string>
+
+</resources>

@@ -1,0 +1,10 @@
+what,kind,bundleId,bundleVersion,description,time
+stopped,bundle,org.eclipse.m2e.launching,1.0.200.20111228-1245,"org.eclipse.m2e.launching",1338389177220
+stopped,bundle,org.eclipse.m2e.usagedata,1.0.200.20111228-1245,"org.eclipse.m2e.usagedata",1338389177220
+stopped,bundle,overlay.com.android.ide.eclipse.adt.overlay,18.0.0.v201203301601-306762,"overlay.com.android.ide.eclipse.adt.overlay",1338389177220
+stopped,bundle,com.android.ide.eclipse.adt,18.0.0.v201203301601-306762,"com.android.ide.eclipse.adt",1338389177220
+stopped,bundle,org.eclipse.ui.cheatsheets,3.4.100.v20110425,"org.eclipse.ui.cheatsheets",1338389177222
+stopped,bundle,org.eclipse.help.ui,3.5.101.r37_20110819,"org.eclipse.help.ui",1338389177223
+stopped,bundle,org.eclipse.help.webapp,3.6.1.r37_20110929,"org.eclipse.help.webapp",1338389177241
+stopped,bundle,org.eclipse.epp.mpc.ui,1.1.1.I20110907-0947,"org.eclipse.epp.mpc.ui",1338389177244
+stopped,bundle,org.eclipse.epp.usagedata.ui,1.3.1.R201106061540,"org.eclipse.epp.usagedata.ui",1338389177264

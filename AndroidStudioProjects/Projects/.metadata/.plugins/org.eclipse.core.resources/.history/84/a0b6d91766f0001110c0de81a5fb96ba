@@ -1,0 +1,14 @@
+package ipcm.tool.kit;
+
+import android.app.ListActivity;
+import android.os.Bundle;
+
+public class Publications extends ListActivity{
+
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.publications);
+	}
+	
+}

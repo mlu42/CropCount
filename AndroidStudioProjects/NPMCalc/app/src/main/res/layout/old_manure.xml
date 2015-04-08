@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <!--Analyzed header -->
+        <!--<TextView-->
+        <!--android:id="@+id/analysis_title"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:text="@string/analysis_title"-->
+        <!--android:textSize="20sp"-->
+        <!--android:padding="5dp"-->
+        <!--android:textColor="#000"/>-->
+        <!--analyzed picker -->
+        <LinearLayout
+            android:id="@+id/analysis_option"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+            <!-- The first option -->
+            <TextView
+                android:id="@+id/analysis1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/analysis1"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_left_button_unselected"
+                android:layout_weight="1"
+
+                android:textSize="18sp"/>
+            <!-- The second option -->
+            <TextView
+                android:id="@+id/analysis2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/analysis2"
+                android:gravity="center"
+                android:textColor="@color/text_green"
+                android:padding="5dp"
+                android:background="@drawable/toggle_right_button_unselected"
+                android:layout_weight="1"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+
+
+        <!--The manure picker header -->
+        <TextView
+            android:id="@+id/manure_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/manure_type"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:textColor="#000"/>
+        <!--manure picker -->
+        <LinearLayout
+            android:id="@+id/manure_type_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+            <!-- The first option -->
+            <TextView
+                android:id="@+id/manure_type1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/manure_type1"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_left_button_unselected"
+                android:layout_weight="1"
+
+                android:textSize="20sp"/>
+            <!-- The second option -->
+            <TextView
+                android:id="@+id/manure_type2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/manure_type2"
+                android:gravity="center"
+                android:textColor="@color/text_green"
+                android:padding="5dp"
+                android:background="@drawable/toggle_right_button_unselected"
+                android:layout_weight="1"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+
+
+        <!-- The manure header -->
+        <TextView
+            android:id="@+id/manure_item_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/manure_item_header"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:textColor="#000"/>
+        <Spinner
+            android:id="@+id/manure_spinner"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+
+
+        <!--crop time-->
+        <TextView
+            android:id="@+id/incorp_time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/incorp_time_header"
+            android:padding="5dp"
+
+            android:textSize="20sp"
+            android:textColor="#000"/>
+        <!-- The stand density picker -->
+        <LinearLayout
+            android:id="@+id/incorp_time_layout"
+            android:paddingBottom="10dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <!-- The first option -->
+            <TextView
+                android:id="@+id/incorp_time1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/incorp_time1"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_left_button_unselected"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="18sp"/>
+            <!-- The second option -->
+            <TextView
+                android:id="@+id/incorp_time2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/incorp_time2"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_middle_button_unselected"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="18sp"/>
+            <!-- The third option -->
+            <TextView
+                android:id="@+id/incorp_time3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/incorp_time3"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_right_button_unselected"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+
+
+
+
+        <!-- The title option -->
+        <LinearLayout
+            android:id="@+id/title_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="70px"
+            android:layout_marginLeft="70px"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/title_input_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="@string/title_total"
+                android:padding="5dp"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:layout_weight="1"
+                android:layout_marginRight="40px"/>
+            <TextView
+                android:id="@+id/title_input_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:text="@string/available_reset"
+                android:padding="5dp"
+                android:gravity="center"
+
+                android:textSize="18sp"
+                android:background="@drawable/toggle_middle_button_unselected"
+                android:textColor="#000"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/title_input_avail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="@string/title_avail"
+                android:padding="5dp"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:layout_weight="1"
+                android:layout_marginLeft="40px"/>
+        </LinearLayout>
+
+
+        <!--non analysis part-->
+
+
+        <LinearLayout
+            android:id="@+id/N_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center_horizontal">
+            <!-- The first option -->
+            <EditText
+                android:id="@+id/N_input_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/input_hint"
+                android:layout_marginRight="65px"
+                android:maxLength="2"
+                android:inputType="number" />
+            <TextView
+                android:id="@+id/N_input_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/N_input_title"
+                android:padding="5dp"
+                android:textSize="18sp"
+                android:textColor="#000"/>
+            <EditText
+                android:id="@+id/N_input_avail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/input_hint"
+                android:layout_marginLeft="65px"
+                android:maxLength="2"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/P_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center_horizontal">
+            <!-- The first option -->
+            <EditText
+                android:id="@+id/P_input_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/input_hint"
+                android:layout_marginRight="40px"
+                android:maxLength="2"
+                android:inputType="number" />
+            <TextView
+                android:id="@+id/P_input_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/P_input_title"
+                android:padding="5dp"
+                android:textSize="18sp"
+                android:textColor="#000"/>
+            <EditText
+                android:id="@+id/P_input_avail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/input_hint"
+                android:layout_marginLeft="40px"
+                android:maxLength="2"
+                android:inputType="number" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/K_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center_horizontal">
+            <!-- The first option -->
+            <EditText
+                android:id="@+id/K_input_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/input_hint"
+                android:layout_marginRight="45px"
+                android:maxLength="2"
+                android:inputType="number" />
+            <TextView
+                android:id="@+id/K_input_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/K_input_title"
+                android:padding="5dp"
+                android:textSize="18sp"
+                android:textColor="#000"/>
+            <EditText
+                android:id="@+id/K_input_avail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/input_hint"
+                android:layout_marginLeft="45px"
+                android:maxLength="2"
+                android:inputType="number" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/S_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center_horizontal">
+            <!-- The first option -->
+            <EditText
+                android:id="@+id/S_input_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/input_hint"
+                android:layout_marginRight="60px"
+                android:maxLength="2"
+                android:inputType="number" />
+            <TextView
+                android:id="@+id/S_input_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/S_input_title"
+                android:padding="5dp"
+                android:textSize="18sp"
+                android:textColor="#000"/>
+            <EditText
+                android:id="@+id/S_input_avail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/input_hint"
+                android:layout_marginLeft="60px"
+                android:maxLength="2"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/manure_rate_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/manure_rate_header"
+            android:textSize="20sp"
+            android:padding="2dp"
+            android:textColor="#000"/>
+        <LinearLayout
+            android:id="@+id/manure_input_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="3dp"
+            android:paddingBottom="15dp"
+            android:weightSum="5"
+            android:layout_gravity="center_horizontal">
+            <!-- The minus option-->
+            <TextView
+                android:id="@+id/minus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/minus"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_left_button_unselected"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="18sp"/>
+            <!-- The plus option -->
+            <TextView
+                android:id="@+id/plus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/plus"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_middle_button_unselected"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="18sp"/>
+            <!-- The display  -->
+            <TextView
+                android:id="@+id/manure_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/manure_input"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_right_button_unselected"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+
+        <!-- The output layout -->
+        <LinearLayout
+            android:id="@+id/output_manure_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/output_background"
+            android:paddingTop="10dp"
+            android:orientation="vertical">
+            <!-- The header that tells the user what this box is for -->
+            <TextView
+                android:id="@+id/manure_output_header"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="@string/manure_output_header"
+                android:textColor="@color/black"
+                android:textSize="22sp"/>
+            <!-- The result -->
+
+            <LinearLayout
+                android:id="@+id/manure_output_firstLayer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:background="@drawable/output_background"
+                android:orientation="horizontal">
+                <!-- The result -->
+                <LinearLayout
+                    android:id="@+id/manure_output_group0"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:background="@drawable/output_background"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/N"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/manure_result_header0"
+                        android:textColor="@color/N"
+                        android:padding="2dp"
+                        android:layout_weight="1"
+                        android:textSize="15sp"/>
+                    <TextView
+                        android:id="@+id/manure_output0"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/manure_result_default"
+                        android:textColor="@color/N"
+                        android:paddingBottom="10dp"
+                        android:layout_weight="1"
+                        android:textSize="50sp"/>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:id="@+id/manure_output_group1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:background="@drawable/output_background"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/P2O5"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/manure_result_header1"
+                        android:padding="2dp"
+                        android:textColor="@color/P"
+                        android:layout_weight="1"
+                        android:textSize="15sp"/>
+                    <TextView
+                        android:id="@+id/manure_output1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/manure_result_default1"
+                        android:textColor="@color/P"
+                        android:paddingBottom="10dp"
+                        android:layout_weight="1"
+                        android:textSize="50sp"/>
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/manure_output_group2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:background="@drawable/output_background"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/K2O"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/manure_result_header2"
+                        android:textColor="@color/K"
+                        android:padding="2dp"
+                        android:layout_weight="1"
+                        android:textSize="15sp"/>
+                    <TextView
+                        android:id="@+id/manure_output2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/manure_result_default2"
+                        android:textColor="@color/K"
+                        android:paddingBottom="10dp"
+                        android:layout_weight="1"
+                        android:textSize="50sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/manure_output_group3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:background="@drawable/output_background"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/S"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/manure_result_header3"
+                        android:textColor="@color/S"
+                        android:layout_weight="1"
+                        android:padding="2dp"
+                        android:textSize="15sp"/>
+                    <TextView
+                        android:id="@+id/manure_output3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/manure_result_default3"
+                        android:textColor="@color/S"
+                        android:paddingBottom="10dp"
+                        android:layout_weight="1"
+                        android:textSize="50sp"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

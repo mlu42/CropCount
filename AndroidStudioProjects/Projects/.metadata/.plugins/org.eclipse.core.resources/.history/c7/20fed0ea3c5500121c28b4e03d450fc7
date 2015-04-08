@@ -1,0 +1,409 @@
+package ipcm.tool.kit;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+public class PhotoGallery extends HorizontalScrollView {
+	
+	private ScrollListener scrollViewListener = null;
+	private MeasureListener measureListener = null;
+	private ArrayList<Picture> pictures = null;
+	private LinearLayout masterLayout;
+	private ImageView prev;
+	private ImageView curr;
+	private ImageView next;
+	private Context context;
+	private boolean rescroll = true;
+	private boolean ignore = false;
+	private boolean scrollingEnabled = true;
+	private boolean redraw = false;
+	private int width = 480;
+	private RefreshImagesTask refresh = new RefreshImagesTask();
+	private Bitmap tempBitmap;
+	private int prevPosition;
+	private int position;
+	
+	public PhotoGallery(Context context){
+		super(context);
+	}
+	
+	public PhotoGallery(Context _context, AttributeSet attrs){
+		super(_context, attrs);
+		
+		context = _context;
+	}
+	
+	public void setScrollViewListener(ScrollListener _scrollViewListener){
+		scrollViewListener = _scrollViewListener;
+	}
+	
+	public void setMeasureListener(MeasureListener _measureListener){
+		measureListener = _measureListener;
+	}
+	
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		
+		Log.d("onMeasure", "being called");
+		if(prev != null)
+			Log.d("currLeft", ((Integer)prev.getWidth()).toString());
+		
+		//////////////////////////
+		
+		if(position == 0)
+			scrollTo(0, 0);
+		else
+			scrollTo(prev.getWidth(), 0);
+		
+		/////////////////////////
+		Log.d("onMeasure", "being calledXXXXX");
+	}
+	
+	protected void onScrollChanged(int x, int y, int oldx, int oldy) {
+		
+		Log.d("coordinates", "(" + ((Integer)x).toString() + "," + ((Integer)y).toString() + ") <--- (" + ((Integer)oldx).toString() + "," + ((Integer)oldy).toString() + ")");
+		
+		
+		//if(isScrollable()){
+			super.onScrollChanged(x, y, oldx, oldy);
+			
+			int leftThresh, rightThresh;
+			
+			//Log.d("a", "a");
+			
+			if(prev != null)
+				leftThresh = curr.getLeft() - prev.getWidth()/2;
+			else
+				leftThresh = 0;
+			
+			rightThresh = curr.getLeft() + curr.getWidth()/2;
+			
+			//Log.d("b", "b");
+			
+			if(x < leftThresh && oldx >= leftThresh && prev != null){
+				
+				/*Log.d("prev", ((Integer)prev.getWidth()).toString());
+				Log.d("curr", ((Integer)curr.getWidth()).toString());
+				Log.d("next", ((Integer)next.getWidth()).toString());
+				Log.d("layout", ((Integer)masterLayout.getWidth()).toString());
+				
+				Log.d("transitioning", "left");
+				
+				smoothScrollTo(0,0);
+				
+				/*LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(480, LinearLayout.LayoutParams.WRAP_CONTENT);
+				params.gravity = Gravity.CENTER;
+				
+				ImageView newImage = new ImageView(context);
+				newImage.setLayoutParams(params);
+
+				newImage.setImageBitmap(getBitmap(getPicture(2)));
+				setNext(getBitmap(getPicture(2)));
+				
+				ImageView temp = prev;
+				prev = next;
+				
+				next = curr;
+				curr = temp;
+				
+				//Log.d("newImage", ((Integer)newImage.getWidth()).toString());
+				Log.d("curr", ((Integer)curr.getWidth()).toString());
+				Log.d("next", ((Integer)next.getWidth()).toString());
+				Log.d("layout", ((Integer)masterLayout.getWidth()).toString());
+				
+				masterLayout.removeView(prev);
+				masterLayout.removeView(curr);
+				masterLayout.removeView(next);
+				
+				removeView(masterLayout);
+				
+				FrameLayout.LayoutParams prams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+				
+				masterLayout = new LinearLayout(context);
+				masterLayout.setLayoutParams(prams);
+				masterLayout.setOrientation(LinearLayout.HORIZONTAL);
+				
+				Log.d("prev", ((Integer)prev.getWidth()).toString());
+				Log.d("curr", ((Integer)curr.getWidth()).toString());
+				Log.d("next", ((Integer)next.getWidth()).toString());
+				Log.d("layout", ((Integer)masterLayout.getWidth()).toString());
+
+
+				masterLayout.addView(prev);
+				masterLayout.addView(curr);
+				masterLayout.addView(next);
+				Log.d("START", "START");
+				addView(masterLayout);
+				redraw = true;
+				Log.d("START", "START");
+				
+				
+				Log.d("prev", ((Integer)prev.getWidth()).toString());
+				Log.d("curr", ((Integer)curr.getWidth()).toString());
+				Log.d("next", ((Integer)next.getWidth()).toString());
+				Log.d("layout", ((Integer)masterLayout.getWidth()).toString());*/
+				
+				//setEnabled(false);
+				
+				/*masterLayout.removeAllViews();
+				
+				setNext(getBitmap(getPicture(2)));
+				
+				ImageView temp = prev;
+				prev = next;				
+				next = curr;
+				curr = temp;
+				
+				masterLayout.addView(prev);
+				masterLayout.addView(curr);
+				masterLayout.addView(next);
+				
+				Log.d("prev", ((Integer)prev.getWidth()).toString());
+				Log.d("curr", ((Integer)curr.getWidth()).toString());
+				Log.d("next", ((Integer)next.getWidth()).toString());
+				Log.d("layout", ((Integer)masterLayout.getWidth()).toString());*/
+				
+				
+				
+				
+				
+				/*setScrollable(false);
+				masterLayout.removeView(next);
+				next = curr;
+				curr = prev;				
+				
+				ImageView newImage = new ImageView(context);
+				newImage.setImageBitmap(getBitmap(getPicture(2)));
+				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(curr.getWidth(), LinearLayout.LayoutParams.WRAP_CONTENT);
+				params.gravity = Gravity.CENTER;
+				prev = newImage;
+				masterLayout.addView(newImage, 0, params);*/
+				
+				smoothScrollTo(0, 0);
+				prevPosition = position;
+				position--;
+				
+				new RefreshImagesTask().execute(masterLayout);
+							
+			}
+			
+			if(x > rightThresh && oldx <= rightThresh && next != null){
+				
+				//position++;
+				
+				//masterLayout.removeView(prev);
+				//smoothScrollTo(next.getLeft(), 0);
+				smoothScrollTo(curr.getRight(), 0);
+				prevPosition = position;
+				position++;
+				
+				new RefreshImagesTask().execute(masterLayout);
+				
+			}
+			
+			//Log.d("c", "c");
+		
+	}
+	
+	private class RefreshImagesTask extends AsyncTask<LinearLayout, Void, ArrayList<ImageView>>{
+		
+		@Override
+		protected void onPreExecute(){
+			
+		}
+		
+		@Override
+		protected ArrayList<ImageView> doInBackground(LinearLayout... p){
+			
+			//masterLayout.removeAllViews();
+			
+			ArrayList<ImageView> images = new ArrayList<ImageView>();
+			
+			if(prevPosition > position){
+				
+				tempBitmap = getBitmap(getPicture(position-1));
+				
+			}else{
+				
+				tempBitmap = getBitmap(getPicture(position+1));
+				
+			}
+			
+			/*ImageView temp = prev;
+			prev = next;				
+			next = curr;
+			curr = temp;*/
+			
+			next = curr;
+			curr = prev;
+			prev = temp;
+			
+			images.add(prev);
+			images.add(curr);
+			images.add(next);
+			
+			/*masterLayout.addView(prev);
+			masterLayout.addView(curr);
+			masterLayout.addView(next);
+			
+			Log.d("prev", ((Integer)prev.getWidth()).toString());
+			Log.d("curr", ((Integer)curr.getWidth()).toString());
+			Log.d("next", ((Integer)next.getWidth()).toString());
+			Log.d("layout", ((Integer)masterLayout.getWidth()).toString());*/
+			
+			return images;
+			
+		}
+		
+		protected void onPostExecute(ArrayList<ImageView> images){
+			
+			masterLayout.removeAllViews();
+		
+			masterLayout.addView(images.get(2));
+			masterLayout.addView(images.get(1), 0);
+			masterLayout.addView(images.get(0), 0);
+			
+			setNext(tempBitmap);
+			
+		}
+		
+	}
+	
+	public boolean onTouchEvent(MotionEvent event){	
+		
+		boolean ret = super.onTouchEvent(event);
+		
+		if(event.getAction() == MotionEvent.ACTION_UP){
+			setEnabled(true);
+		}
+		
+		return ret;
+		
+	}
+
+	public ArrayList<Picture> getPictureList() {
+		return pictures;
+	}
+
+	public void setPictureList(ArrayList<Picture> pictures) {
+		this.pictures = pictures;
+	}
+	
+	public ImageView getPrev(){
+		return prev;
+	}
+	
+	public void setPrev(Bitmap bmp){		
+		prev.setImageBitmap(bmp);
+	}
+	
+	public ImageView getCurr(){
+		return curr;
+	}
+	
+	public void setCurr(Bitmap bmp){
+		curr.setImageBitmap(bmp);
+	}
+	
+	public ImageView getNext(){
+		return next;
+	}
+	
+	public void setNext(Bitmap bmp){
+		next.setImageBitmap(bmp);
+	}
+	
+	public void initialize(int pos, int _width){
+		
+		Log.d("initializing", ((Integer)pos).toString());
+		
+		position = pos;
+		
+		width = _width;
+		
+		FrameLayout.LayoutParams prams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+		
+		masterLayout = new LinearLayout(context);
+		masterLayout.setLayoutParams(prams);
+		masterLayout.setOrientation(LinearLayout.HORIZONTAL);
+		addView(masterLayout);
+		
+		/////////////////////////////
+		
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(_width, LinearLayout.LayoutParams.WRAP_CONTENT);
+		params.gravity = Gravity.CENTER;
+		
+		prev = new ImageView(context);
+		prev.setLayoutParams(params);
+		
+		curr = new ImageView(context);
+		curr.setLayoutParams(params);
+		
+		next = new ImageView(context);
+		next.setLayoutParams(params);
+		
+		/////////////////////////////
+		
+		if(pos > 0)
+			setPrev(getBitmap(getPicture(pos-1)));
+		else
+			prev = null;
+		
+		setCurr(getBitmap(getPicture(pos)));
+		
+		if(pos < pictures.size())
+			setNext(getBitmap(getPicture(pos+1)));
+		else
+			next = null;
+		
+		/////////////////////////////
+		
+		if(prev != null)
+			masterLayout.addView(prev);
+		
+		masterLayout.addView(curr);
+		
+		if(next != null)
+			masterLayout.addView(next);
+		
+	}
+	
+	public Picture getPicture(int pos){
+		return pictures.get(pos);
+	}
+	
+	private Bitmap getBitmap(Picture pic){
+		
+		Bitmap bmp = null;
+		try{
+			bmp = BitmapFactory.decodeStream(pic.getImageURL().openConnection().getInputStream());			
+		}catch(IOException e){			
+		}
+		
+		return bmp;
+		
+	}
+	
+	public boolean isScrollable(){
+		return scrollingEnabled;
+	}
+	
+	public void setScrollable(boolean _scrollable){
+		scrollingEnabled = _scrollable;
+		Log.d("scrollable set to...",((Boolean)_scrollable).toString());
+	}
+
+}

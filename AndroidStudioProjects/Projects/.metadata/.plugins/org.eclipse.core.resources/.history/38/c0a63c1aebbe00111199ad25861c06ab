@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"            
+android:background="@drawable/background">
+<!-- The main layout parent. Holds everything -->
+<LinearLayout 
+android:id="@+id/main_layout"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:orientation="vertical">
+    <!-- The layout for the row of input at the top -->	
+	<LinearLayout
+	android:id="@+id/top_inputs_layout"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	android:gravity="center_horizontal">
+	    <!-- The vertical linear layout for the first input -->
+	    <LinearLayout
+	    android:id="@+id/fert_price_layout"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical">
+	    	<!-- The label for the first input -->
+	        <TextView 
+	        android:id="@+id/fert_price_label"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/fert_price_label"
+	        android:layout_gravity="center_horizontal"
+	        android:textColor="@color/black"/>
+	        <!-- The EditText for the first input -->
+	        <EditText
+	        android:id="@+id/fert_price_input"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/fert_price_hint"
+	        android:gravity="center"/>
+	    </LinearLayout>	<!-- End fert price input layout -->
+	    <!-- The vertical linear layout for the second input -->
+	    <LinearLayout
+	    android:id="@+id/n_percent_layout"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical">
+	        <!-- The label for the second input -->
+	        <TextView 
+	        android:id="@+id/n_percent_label"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/n_percent_label"
+	        android:layout_gravity="center_horizontal"
+	        android:textColor="@color/black"/>
+	        <!-- The EditText for the second input -->
+	        <EditText
+	        android:id="@+id/n_percent_input"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/n_percent_hint"
+	        android:gravity="center"/>
+	    </LinearLayout>	<!-- End N percent input layout -->
+	</LinearLayout>	<!-- End input row -->
+	<!-- The list of fertilizer types -->
+	<TextView
+	android:id="@+id/fert1"
+	android:text="@string/fert1"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/list_item"
+	android:textColor="@color/black" />
+	<TextView
+	android:id="@+id/fert2"
+	android:text="@string/fert2"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/list_item"
+	android:textColor="@color/black"/>
+	<TextView
+	android:id="@+id/fert3"
+	android:text="@string/fert3"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/list_item"
+	android:textColor="@color/black"/>
+	<TextView
+	android:id="@+id/fert4"
+	android:text="@string/fert4"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/list_item"
+	android:textColor="@color/black"/>
+	<TextView
+	android:id="@+id/fert5"
+	android:text="@string/fert5"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/list_item"
+	android:textColor="@color/black"/>
+	<TextView
+	android:id="@+id/fert6"
+	android:text="@string/fert6"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/list_item"
+	android:textColor="@color/black"/>
+	<!-- End list of fertilizer types -->
+	<!-- The result -->
+	<TextView
+	android:id="@+id/result"
+	android:text="@string/result_default"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_gravity="center_horizontal"
+	android:textColor="@color/black"/>
+	<!-- The result explanation -->
+	<TextView
+	android:id="@+id/result_Explanation"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:gravity="center"
+	android:textColor="@color/dark_grey"/>
+	<!-- The row of buttons at the bottom -->
+	<LinearLayout
+    android:id="@+id/button_row"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:gravity="center|bottom">
+	    <TextView
+	    android:id="@+id/add_to_list"
+	    android:text="@string/button_1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textColor="@color/black"
+	    android:background="@drawable/list_item"/>
+	    <TextView
+	    android:id="@+id/compare_prices"
+	    android:text="@string/button_2"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textColor="@color/black"
+	    android:background="@drawable/list_item"/>
+	</LinearLayout>
+</LinearLayout>	<!-- End main layout -->    
+</ScrollView>

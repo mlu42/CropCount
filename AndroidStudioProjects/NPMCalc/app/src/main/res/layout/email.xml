@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Defines the layout for the activity that shows up
+	 when the Email tab is active -->
+
+<!-- Makes the activity scrollable -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <!-- A wrapper that is necessary for the sake of having a parent for the main layout -->
+    <LinearLayout
+        android:id="@+id/wrapper"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dp">
+        <!-- The main LinearLayout -->
+        <LinearLayout
+            android:id="@+id/email_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+            <!-- The button that goes to the default email application -->
+
+
+            <EditText
+                android:id="@+id/subject_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/subject"
+                android:lines="1"
+                android:scrollHorizontally="true" />
+
+            <EditText
+                android:id="@+id/text_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/body_text"
+                android:scrollbars="vertical" />
+
+
+            <LinearLayout
+                android:id="@+id/subject_line_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/legume_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_left_button_unselected"
+
+                    android:text="Legume Report" />
+
+                <Button
+                    android:id="@+id/manure_button"
+                    android:layout_alignRight="@+id/legume_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_right_button_unselected"
+
+
+                    android:text="Manure Report" />
+
+                <Button
+                    android:id="@+id/send_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background_green"
+                    android:drawableLeft="@drawable/ic_action_send_now"
+                    android:layout_weight="1"
+                    android:layout_alignParentRight="true"
+                    android:text="Send" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>
+
+	

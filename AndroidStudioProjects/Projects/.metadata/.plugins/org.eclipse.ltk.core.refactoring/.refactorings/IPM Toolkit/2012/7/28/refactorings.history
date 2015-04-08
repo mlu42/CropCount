@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;ipcm.tool.kit.IPMToolkitActivity&apos; to &apos;Main&apos;&#x0D;&#x0A;- Original project: &apos;IPM Toolkit&apos;&#x0D;&#x0A;- Original element: &apos;ipcm.tool.kit.IPMToolkitActivity&apos;&#x0D;&#x0A;- Renamed element: &apos;ipcm.tool.kit.Main&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;IPMToolkitActivity&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;ipcm.tool.kit{IPMToolkitActivity.java[IPMToolkitActivity" matchStrategy="1" name="Main" qualified="false" references="true" similarDeclarations="false" stamp="1342198974274" textual="false" version="1.0"/>
+</session>

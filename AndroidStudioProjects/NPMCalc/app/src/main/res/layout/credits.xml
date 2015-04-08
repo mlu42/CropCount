@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Defines the layout for the activity that is
+	 visible when the Credits tab is active -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <!-- A simple web view that holds all the info in a 
+    	 CSS and HTML file -->
+    <WebView
+    android:id="@+id/credits_webview"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none"
+    />
+    
+</LinearLayout>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;ipcm.calc.nrate.CurrencyDecimalFormatWatcher&apos; to &apos;DollarFormatWatcher&apos;&#x0D;&#x0A;- Original project: &apos;Corn N Rate Calculator&apos;&#x0D;&#x0A;- Original element: &apos;ipcm.calc.nrate.CurrencyDecimalFormatWatcher&apos;&#x0D;&#x0A;- Renamed element: &apos;ipcm.calc.nrate.DollarFormatWatcher&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;CurrencyDecimalFormatWatcher&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;ipcm.calc.nrate{CurrencyDecimalFormatWatcher.java[CurrencyDecimalFormatWatcher" matchStrategy="1" name="DollarFormatWatcher" qualified="false" references="true" similarDeclarations="false" stamp="1341587116854" textual="false" version="1.0"/>
+</session>

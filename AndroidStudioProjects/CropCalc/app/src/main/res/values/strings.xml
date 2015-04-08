@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Crop Calculators</string>
+
+    <string name="title_section1">Information</string>
+    <string name="title_section2">Grain Yield Estimator</string>
+    <string name="title_section3">Maturity Date Predictor</string>
+    <string name="title_section4">Silage Moisture Cost Adjuster</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_help">Help</string>
+    <string name="action_email">Email</string>
+
+
+
+
+
+    <string name="select_a_crop">Select a crop</string>
+
+    <string name="select_a_tool">Select a tool</string>
+    <string name="corn_silage_moisture_title">Silage Moisture Cost Adjuster</string>
+    <string name="grain_yield_title">Grain Yield Estimator</string>
+    <string name="maturity_predictor_title">Maturity Date Predictor</string>
+    <string name="result_title">Calculated forage price\n($/ton)</string>
+    <string name="input_1_ttwiitle">Negotiated price\n($/ton)</string>
+    <string name="input_2_title">In-field moisture\n(%)</string>
+    <string name="input_3_title">Negotiated moisture\n(%)</string>
+    <string name="kernel_milk_title">50% Kernel Milk Date Range</string>
+    <string name="black_layer_title">Black Layer Date Range</string>
+    <string name="frost_date_title">Expected frost date</string>
+    <string name="frost_date_button">Pick date</string>
+    <string name="tassel_date_title">Tassel date</string>
+
+
+
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_websearch">Web search</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
+
+
+
+</resources>

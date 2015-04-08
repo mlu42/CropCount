@@ -1,0 +1,104 @@
+package ipcm.tool.kit;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import android.content.ContentProvider;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.MatrixCursor;
+import android.net.Uri;
+import android.util.Log;
+
+public class SearchSuggestionsProvider extends ContentProvider {
+	
+	public boolean onCreate(){
+		
+		return true;
+	}
+
+	public Cursor query(Uri uri, String[] projection, String startsOrContains, String[] selectionArgs, String keyword){
+		
+		String query = "http://images.bugwood.org/addins/autosuggestlookups/subjectJPImages.cfm?callback=IPMToolkit&term=";
+		
+		if(new Pictures().getSearchOption() == 0)
+			query+="*";
+		
+		query += keyword;
+		
+		Log.d("searchTerm", query);
+		
+		JSONArray array = new JSONArray();
+		BufferedReader reader = null;
+				
+		try{
+			URL url = new URL(query);
+			reader = new BufferedReader(new InputStreamReader(url.openStream()));
+	        StringBuffer buffer = new StringBuffer();
+	        int read;
+	        char[] chars = new char[1024];
+	        while ((read = reader.read(chars)) != -1)
+	            buffer.append(chars, 0, read);
+	        
+	        Log.d("buffer", buffer.toString());
+	        array = new JSONArray(buffer.toString());
+		}catch(Exception e){
+			Log.d("exception", "exception");
+		}
+		
+		String[] colNames = new String[2];
+		colNames[0] = "_id";
+		colNames[1] = "suggestion";
+		MatrixCursor c = new MatrixCursor(colNames);
+		
+
+		Log.d("length", ((Integer)array.length()).toString());
+		
+		try{
+			for(int i = 0; i< array.length(); i++){
+				JSONObject row = array.getJSONObject(i);
+				String id = row.getString("id");
+				String value = row.getString("value");
+				
+				c.addRow(new String[]{id, value});
+			}
+			
+		}catch(Exception e){
+			
+		}
+		Log.d("size", ((Integer)c.getCount()).toString());
+		return c;
+		
+		
+		
+	}
+	
+	public Uri insert(Uri uri, ContentValues values){
+
+		return uri;
+		
+	}
+	
+	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs){
+		
+		return 0;
+		
+	}
+	
+	public int delete(Uri uri, String selection, String[] selectionArgs){
+		
+		return 0;
+		
+	}
+	
+	public String getType(Uri url){
+		
+		return "";
+		
+	}	
+	
+}

@@ -1,0 +1,223 @@
+package ipcm.tool.kit;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.util.SparseArray;
+import android.view.Display;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
+
+public class ImageDetailActivity extends FragmentActivity {
+    public static final String EXTRA_IMAGE = "extra_image";
+
+    private ImagePagerAdapter mAdapter;
+    private ViewPager mPager;
+    public static ArrayList<Picture> bitmaps;
+    private static int position;
+    private Intent intent;
+    Context context = this;
+    public static SparseArray<Bitmap> cache;
+    private static Bitmap loadedBitmap;
+    private ZoomableImageView zoomedImage;
+    public static Bitmap currBitmap;
+    private boolean zoomed;
+
+	private GestureDetector gestureDetector;
+	View.OnTouchListener gestureListener;
+
+    // A static dataset to back the ViewPager adapter
+    /*public final static Integer[] imageResIds = new Integer[] {
+            R.drawable.sample_image_1, R.drawable.sample_image_2, R.drawable.sample_image_3,
+            R.drawable.sample_image_4, R.drawable.sample_image_5, R.drawable.sample_image_6,
+            R.drawable.sample_image_7, R.drawable.sample_image_8, R.drawable.sample_image_9};*/
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.viewimage); // Contains just a ViewPager
+        
+        intent = getIntent();
+        position = intent.getIntExtra("position", 0);
+		bitmaps = intent.getParcelableArrayListExtra("pictures");
+		cache = new SparseArray<Bitmap>();
+		zoomed = false;
+		
+		gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener());
+		gestureDetector.setOnDoubleTapListener(new MyDoubleTapListener());
+		
+		gestureListener = new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        };
+
+        mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), bitmaps.size());
+        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager.setAdapter(mAdapter);
+        
+        mPager.setOnTouchListener(gestureListener);
+        
+        mPager.setCurrentItem(position);
+              
+    }
+
+    public static class ImagePagerAdapter extends FragmentStatePagerAdapter {
+        private final int mSize;
+
+        public ImagePagerAdapter(FragmentManager fm, int size) {
+            super(fm);
+            mSize = size;
+        }
+
+        @Override
+        public int getCount() {
+            return mSize;
+        }
+
+        @Override
+        public Fragment getItem(int _position) {
+        	
+            ImageDetailFragment frag = ImageDetailFragment.newInstance(_position, this);            
+            return frag;
+            
+        }
+        
+        /*@Override
+        public Object instantiateItem(View collection, int position){
+        }*/
+        
+        /*@Override
+        public int getItemPosition(Object object) {
+        	return POSITION_NONE;
+        }*/
+    }
+    
+    private class MyDoubleTapListener implements GestureDetector.OnDoubleTapListener {
+	    public boolean onDoubleTapEvent(MotionEvent e) {                     
+            return false;                      
+	    }
+	                    
+        public boolean onDoubleTap(MotionEvent e) {
+        	
+        	Log.d("DOUBLE", "TAP");
+        	
+        	if(!zoomed){
+        		zoomed = true;
+	        	setContentView(R.layout.viewimagezoom);
+	        	
+	        	gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener());
+	    		gestureDetector.setOnDoubleTapListener(new MyDoubleTapListener());
+	    		
+	    		gestureListener = new View.OnTouchListener() {
+	                public boolean onTouch(View v, MotionEvent event) {
+	                    return gestureDetector.onTouchEvent(event);
+	                }
+	            };
+	            
+	            zoomedImage.setOnTouchListener(gestureDetector);
+	
+	            zoomedImage = (ZoomableImageView)findViewById(R.id.zoomedimage);
+	    	
+	            Log.d("currItemNum", ((Integer)mPager.getCurrentItem()).toString());
+	            if(cache.get(mPager.getCurrentItem()) != null){
+	            	
+	            	Bitmap b = cache.get(mPager.getCurrentItem());
+	            	zoomedImage.setImageBitmap(b);  
+	            	
+	
+	            	Display display = getWindowManager().getDefaultDisplay();
+	            	int width = display.getWidth();
+	            	int height = display.getHeight();
+	            	
+	            	zoomedImage.xLeftBorder = -(b.getWidth() - width/2.0f);
+	            	zoomedImage.xRightBorder = b.getWidth() - width/2.0f;
+	            	
+	            	if(zoomedImage.xLeftBorder > 0){
+	            		zoomedImage.xLeftBorder = zoomedImage.xRightBorder = 0;
+	            	}
+	            	
+	            	zoomedImage.yTopBorder = -(b.getHeight() - height/2.0f);
+	            	zoomedImage.yBottomBorder = b.getHeight() - height/2.0f;
+	            	
+	            	if(zoomedImage.yTopBorder > 0){
+	            		zoomedImage.yTopBorder = zoomedImage.yBottomBorder = 0;
+	            	}
+	            	
+	            	//zoomedImage.setImageTransformation(0.0f, 0.0f, 1.5f);
+	            	zoomedImage.setImageTransformation(-(2.0f*b.getWidth() - width)/2.0f, (height - 2.0f*b.getHeight())/2.0f, 2.0f);
+	            }
+        	}else{
+        		zoomed = false;
+                setContentView(R.layout.viewimage); 
+                Log.d("DOUBLE", "TAPPED WHEN ZOOMED");
+                
+        	}
+        	
+            return false;
+        }
+
+	    public boolean onSingleTapConfirmed(MotionEvent e) {
+	    	return false;
+	    }
+	}
+    
+    public static Bitmap loadBitmap(int pos){
+    	
+    	Log.d("loading", ((Integer)pos).toString());
+    	
+    	//Bitmap bmp = null;
+		
+		new LoadBitmapTask().execute(pos);
+		
+		if(loadedBitmap != null){
+			//cache.put(pos, loadedBitmap);
+			Bitmap temp = loadedBitmap;
+			loadedBitmap = null;
+			return temp;
+		}
+	
+		Log.d("returning", "null");
+		
+		return null;
+    	
+    }
+    
+    public static class LoadBitmapTask extends AsyncTask<Integer, Void, Bitmap> {
+    	
+		protected Bitmap doInBackground(Integer... params){
+			
+
+			if(cache.get(params[0]) != null)
+				return cache.get(params[0]);
+			
+			try{
+				return BitmapFactory.decodeStream(bitmaps.get(params[0]).getImageURL().openConnection().getInputStream());	
+			}catch(IOException e){
+				e.printStackTrace();
+			}			
+			
+			return null;
+		}
+		
+		protected void onPostExecute(Bitmap bmp){
+			loadedBitmap = bmp;
+			if(loadedBitmap == null)
+				Log.d("BITMAP", "NULL");
+		}
+		
+    }
+}

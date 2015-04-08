@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="white">#FFFF</color>								<!-- A simple white -->
+    <color name="black">#F000</color>								<!-- A simple black -->
+    <color name="dark_grey">#444</color>
+    <color name="toggle_background_selected">#FF669900</color>		<!-- A dark green as found in the Android design guidelines -->
+    <color name="toggle_background_unselected">#FFFFFF</color>	<!-- A lighter green as found in the Android design guidelines -->
+    <color name="save">#FF8ABD00</color>
+
+    <color name="dark_green">#006400</color>
+
+    <color name="background_green">#C8FFCA</color>
+    <color name="text_green">#007F00</color>
+
+    <color name="P">#0072A6</color>
+    <color name="S">#50B748</color>
+    <color name="K">#4E93FF</color>
+    <color name="N">#75470F</color>
+
+    <color name="LegumeRslt">#F000</color>
+
+
+
+
+</resources>

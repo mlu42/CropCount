@@ -163,7 +163,7 @@ public class PhotoIntentActivity extends Activity {
         //set the  image
         mImageBitmap = bitmap;
 
-        setAfterEffectImage(bitmap);
+        //setAfterEffectImage(bitmap);
 
 
 	}
@@ -210,7 +210,6 @@ public class PhotoIntentActivity extends Activity {
             case ACTION_PICK_FROM_GALLERY:
 
 
-
             break;
 
 		default:
@@ -224,7 +223,8 @@ public class PhotoIntentActivity extends Activity {
 	private void handleBigCameraPhoto() {
 
 		if (mCurrentPhotoPath != null) {
-			setPic();
+			//setPic();
+            new GetImages().execute();
 			galleryAddPic();
 
 			mCurrentPhotoPath = null;
@@ -232,10 +232,6 @@ public class PhotoIntentActivity extends Activity {
 
 	}
 
-    private void handleFromGallery(){
-
-
-    }
 
 	Button.OnClickListener mTakePicOnClickListener = 
 		new Button.OnClickListener() {
@@ -309,8 +305,11 @@ public class PhotoIntentActivity extends Activity {
                 mCurrentPhotoPath = getPath(selectedImageUri);
                 Log.v("image path-------->", mCurrentPhotoPath);
 
-                setPic();
-                //new GetImages().execute();
+                //setPic();
+                //use it in a seperate thread
+                new GetImages().execute();
+                //setAfterEffectImage(mImageBitmap);
+
             }
 
 
@@ -321,6 +320,8 @@ public class PhotoIntentActivity extends Activity {
 
 		} // switch
 	}
+
+
 
     private String getPath(Uri uri) {
 
@@ -336,7 +337,6 @@ public class PhotoIntentActivity extends Activity {
             // SDK > 19 (Android 4.4)
         else
             realPath = RealPathUtil.getRealPathFromURI_API19(this, uri);
-
 
         return realPath;
     }
@@ -355,6 +355,7 @@ public class PhotoIntentActivity extends Activity {
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         return cursor.getString(idx);
     }
+
 
 
 	// Some lifecycle callbacks so that the image can survive orientation change
@@ -419,7 +420,9 @@ public class PhotoIntentActivity extends Activity {
 
 
     /**
-     * process the image and give green filter*/
+     * process the image and give green filter
+     *
+     * */
     private Bitmap doColorFilter(Bitmap src, double red, double green, double blue){
 
         int greenCount = 0;
@@ -443,7 +446,7 @@ public class PhotoIntentActivity extends Activity {
                 G = (int)(Color.green(pixel));
                 B = (int)(Color.blue(pixel));
 
-                if(R+B < G/2 || (G>220 &&(B<150 && R<150))){
+                if(G > 40 && G-10 > R && G-10 > B){
                     greenCount++;
 
                     R=0;
@@ -463,7 +466,7 @@ public class PhotoIntentActivity extends Activity {
         }
 
         //display count;
-        double greenPercentage = (double)greenCount/(double)(width*height);
+        double greenPercentage = (double)greenCount/(double)(width*height) *100;
         DecimalFormat df = new DecimalFormat("#.00");
         mPercentage.setText("The percentage of Green in the picture is: " + df.format(greenPercentage) +"%");
 
@@ -474,7 +477,11 @@ public class PhotoIntentActivity extends Activity {
     }
 
 
-
+    /**
+     * An async task that loads the decompose the image and load it
+     * into the imageview after done.
+     *
+    * */
 
     public class GetImages extends AsyncTask<Void, Void, Void>
     {
@@ -482,26 +489,25 @@ public class PhotoIntentActivity extends Activity {
 
         protected void onPreExecute()
         {
-            progDialog=ProgressDialog.show(context, "", "Start",true);
+            progDialog=ProgressDialog.show(context, "", "Loading",true);
         }
         @Override
         protected Void doInBackground(Void... params)
         {
-//              Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
-//              bitmap = Bitmap.createScaledBitmap(bitmap,500, 500, true);
-              progDialog=ProgressDialog.show(context, "", "Loading...",true);
-              setPic();
 
+              setPic();
 
             return null;
         }
 
         protected void onPostExecute(Void result)
         {
+            setAfterEffectImage(mImageBitmap);
             if(progDialog.isShowing())
             {
                 progDialog.dismiss();
             }
+
 
         }
     }

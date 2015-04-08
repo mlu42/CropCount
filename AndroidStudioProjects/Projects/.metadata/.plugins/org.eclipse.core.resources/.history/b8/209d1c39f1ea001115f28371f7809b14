@@ -1,0 +1,56 @@
+package ipcm.tool.kit;
+
+import java.util.ArrayList;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+public class YoutubeAdapter extends ArrayAdapter<YoutubeVideo>{	
+	// Instance variables
+	int resource;
+	private ArrayList<YoutubeVideo> videos;
+	
+	/*
+	 * Constructs a QuoteAdapter object.
+	 * @param _context: the context in which the QuoteAdapter will be used.
+	 * @param _resource: the "R.layout.*" reference to the parent layout
+	 * 					 that will be used for each item in the ListView.
+	 * @param _articles: the data which will be binded to the ListView.
+	 */
+	public YoutubeAdapter(Context _context, int _resource, ArrayList<YoutubeVideo> _videos)
+	{
+		super(_context, _resource, _videos);
+		resource = _resource;
+		videos = _videos;
+	}
+	
+	/*
+	 * Used by default to create a ListView item for each item in the list of data.
+	 * @return: the view to insert into the list.
+	 */
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent)
+	{
+		View view = convertView;		
+		if(view == null)
+		{
+			LayoutInflater vi = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		    view = vi.inflate(resource, null);
+		}
+		YoutubeVideo video = videos.get(position);		
+		if(video != null){
+			ImageView thumbnail = (ImageView)view.findViewById(R.id.thumbnail);
+			TextView top = (TextView)view.findViewById(R.id.top);
+			if(top!=null)
+				top.setText(video.getName());
+			if(thumbnail!=null)
+				thumbnail.setImageURI(new Uri(video.getThumbnailLink()));
+		}		
+		return view;
+	}
+}

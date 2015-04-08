@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Defines the layout for the main Calculator activity that
+	 is visible when the Calculator tab is active -->
+
+<!-- Makes the content scrollable -->
+<ScrollView 
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content">
+	<!-- The main layout for the activity -->
+	<LinearLayout
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
+		<!-- The row of inputs at the top of the calculator activity -->    
+	    <LinearLayout
+	    android:id="@+id/inputLayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal">
+	    	<!-- The first input -->
+	    	<LinearLayout
+	    	android:id="@+id/fert_price_layout"
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:orientation="vertical">
+	    		<!-- The first input's label -->
+	    		<TextView 
+	    		android:id="@+id/fert_price_label"
+	    		android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+	    		android:text="@string/input_1"
+	    		android:textSize="10dp"
+	    		android:textColor="#222"
+	    		android:layout_gravity="center_horizontal"/>	
+	    		<!--  The first input's input field -->
+	    	    <EditText
+		        android:id="@+id/fert_price_input"
+		        android:layout_width="10dp"
+		        android:layout_height="10dp"
+		        android:hint="@string/input_1_hint"
+		        android:gravity="center"
+		        android:maxLength="5"/>	    			    		    		
+	    	</LinearLayout> <!-- End first input -->
+	    	<!-- The second input -->
+	        <LinearLayout
+	    	android:id="@+id/percent_n_layout"
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:orientation="vertical">
+		    	<!-- The second input's label -->
+		    	<TextView 
+	    		android:id="@+id/percent_n_label"
+	    		android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+	    		android:text="@string/input_2"
+	    		android:textSize="10dp"
+	    		android:textColor="#222"
+	    		android:layout_gravity="center_horizontal"/>
+	    		<!-- The second input's input field -->
+	            <EditText
+		    	android:id="@+id/percent_n_input"
+		        android:layout_width="10dp"
+		        android:layout_height="10dp"
+		        android:hint="@string/input_2_hint"
+		        android:gravity="center"
+		        android:maxLength="4"/>
+	        </LinearLayout> <!-- End second input -->
+	        <!-- The third input -->
+	        <LinearLayout
+	    	android:id="@+id/corn_price_layout"
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:orientation="vertical">
+		    	<!-- The third input's label -->
+		    	<TextView 
+	    		android:id="@+id/corn_price_label"
+	    		android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+	    		android:text="@string/input_3"
+	    		android:textSize="10dp"
+	    		android:textColor="#222"
+	    		android:layout_gravity="center_horizontal"/>
+		    	<!-- The third input's input field -->
+	            <EditText
+		        android:id="@+id/corn_price_input"
+		        android:layout_width="10dp"
+		        android:layout_height="10dp"
+		        android:hint="@string/input_3_hint"
+		        android:gravity="center"
+		        android:maxLength="6"/>
+	        </LinearLayout> <!-- End third input -->   	 	
+	    </LinearLayout> <!-- End row of inputs -->	    
+	    <!-- The row of calculated values (second row) -->
+	    <LinearLayout 
+	    android:id="@+id/calcValuesLayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_horizontal">
+	        <!-- The first calculated value (the next two TextViews) -->
+	        <TextView 
+	        android:id="@+id/percent_n_pound_label"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#666"
+	        android:textSize="10dp"
+	        android:gravity="center_horizontal"
+	        android:text="@string/percent_n_pound"/>
+	        <!-- A text view to hold the value of the nitrogen price -->
+	        <TextView 
+	        android:id="@+id/percent_n_pound_value"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:textColor="#666"
+	        android:textSize="15dp"
+	        android:gravity="center"
+	        android:text="@string/dash"/>	        
+	        <!-- The second calculated value (the next two TextViews) -->
+	        <TextView 
+	        android:id="@+id/n_corn_label"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:textColor="#666"
+	        android:textSize="12dp"
+	        android:gravity="center"
+	        android:text="@string/n_corn_ratio"/>
+	        <!-- A text view to hold the value of the N:Corn ratio  -->
+	        <TextView 
+	        android:id="@+id/n_corn_value"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:textColor="#666"
+	        android:textSize="15dp"
+	        android:gravity="center"
+	        android:text="@string/dash"/>
+	    </LinearLayout>	    
+	    <!-- The soil yield potential header -->
+	    <TextView 
+	    android:id="@+id/soil_yield_header"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:text="@string/soil_yield_header"
+	    android:textSize="15dp"
+	   	android:textColor="#000"/>	    
+	    <!-- The soil yield potential picker -->
+	    <LinearLayout
+	    android:id="@+id/potential_picker_layout"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:textSize="10dp">
+	        <!-- The first option -->
+	        <TextView
+	        android:id="@+id/high_yield"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:text="@string/high_yield"
+	    	android:textColor="@color/dark_grey"
+	    	android:gravity="center"/>
+	        <!-- The second option -->
+	        <TextView
+	        android:id="@+id/medium_yield"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:text="@string/medium_yield"
+	    	android:textColor="@color/dark_grey"
+	    	android:gravity="center"/>
+	        <!-- The third option -->
+	        <TextView
+	        android:id="@+id/sands_yield"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:text="@string/sands_yield"
+	    	android:textColor="@color/dark_grey"
+	    	android:gravity="center"/>
+	    </LinearLayout>	    
+	    <!-- The previous crop header -->
+	    <TextView 
+	    android:id="@+id/previous_crop_header"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:text="@string/previous_crop_header"
+	    android:textSize="15dp"
+	   	android:textColor="#000"/>	    
+	    <!-- The previous crop picker -->
+	    <LinearLayout
+	    android:id="@+id/crop_picker_layout"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_horizontal"
+	    android:textSize="10dp">
+	        <!-- The first option -->
+	        <TextView
+	        android:id="@+id/crop_1"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:text="@string/high_medium_left"
+	    	android:gravity="center"
+	    	android:textColor="@color/dark_grey"/>
+	        <!-- The second option -->
+	        <TextView
+	        android:id="@+id/crop_2"
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:text="@string/high_medium_right"
+	    	android:gravity="center"
+	    	android:textColor="@color/dark_grey"/>
+	    </LinearLayout>	    
+	    <!-- The output layout -->
+	    <LinearLayout
+        android:id="@+id/output_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/output_background"
+        android:orientation="vertical">
+	        <!-- The header that tells the user what this box is for -->
+	        <TextView
+	        android:id="@+id/output_header"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center_horizontal"
+	        android:text="@string/output_header"
+	        android:textColor="@color/black"/>	 
+	        <!-- The result -->       
+	        <TextView
+	        android:id="@+id/output_text"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center_horizontal"
+	        android:text="@string/result_default"
+	        android:textColor="@color/black"/>
+	        <!-- The result range -->
+	        <TextView
+	        android:id="@+id/output_range"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center_horizontal"
+	        android:text="@string/range_default"
+	        android:textColor="@color/dark_grey"/>	        
+	    </LinearLayout>	 	        
+	</LinearLayout>
+</ScrollView>

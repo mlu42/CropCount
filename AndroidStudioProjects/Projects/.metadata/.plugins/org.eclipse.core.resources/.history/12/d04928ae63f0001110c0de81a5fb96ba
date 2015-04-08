@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Defines the layout for the main Calculator activity that
+	 is visible when the Calculator tab is active -->
+
+<!-- Makes the content scrollable -->
+<ScrollView 
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/main_parent"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent">
+	<!-- The main layout for the activity -->
+	<LinearLayout
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+		<ListView
+		android:id="@android:id/list"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"	
+		android:background="@color/white"
+		android:cacheColorHint="@color/white"/>		 	        
+	</LinearLayout>
+</ScrollView>

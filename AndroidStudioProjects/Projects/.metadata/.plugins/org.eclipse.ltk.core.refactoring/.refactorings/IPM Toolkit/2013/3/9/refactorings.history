@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;ZoomableImageView.java&apos; to &apos;IPM Toolkit/src/ipcm.tool.kit&apos;&#x0D;&#x0A;- Original project: &apos;IPM Toolkit&apos;&#x0D;&#x0A;- Destination element: &apos;IPM Toolkit/src/ipcm.tool.kit&apos;&#x0D;&#x0A;- Original element: &apos;ipcm.tool.kit.ZoomableImageView.java&apos;" description="Copy compilation unit" destination="/src&lt;ipcm.tool.kit" element1="/src&lt;ipcm.tool.kit{ZoomableImageView.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1362167373035" units="1" version="1.0"/>
+</session>

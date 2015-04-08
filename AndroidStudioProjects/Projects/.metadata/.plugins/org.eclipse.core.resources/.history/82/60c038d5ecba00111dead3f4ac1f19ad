@@ -1,0 +1,11 @@
+In this text file, I keep track of bugs that need to be fixed.
+
+Bugs to fix:
+
+	- Maximum value on corn price per bushel ($20, $19.99)
+	- Change default results to 000, 000 --- 000
+	- No default selected value on toggles
+	- Dynamic labels for toggles
+	- Android OS keeps keyboard on when activity changes
+	- Date says '112'
+	- Match order of labels on inputs

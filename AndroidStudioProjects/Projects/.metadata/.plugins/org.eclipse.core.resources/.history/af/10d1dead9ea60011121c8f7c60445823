@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, Calculator!</string>
+    <string name="app_name">Corn N Rate Calculator</string>
+    <string name="input_1">Fertilizer $/ton</string>
+    <string name="input_2">% Nitrogen</string>
+    <string name="input_3">Corn $/bushel</string>
+    <string name="input_1_hint">Price</string>
+    <string name="input_2_hint">% N</string>
+    <string name="input_3_hint">Price</string>
+
+</resources>

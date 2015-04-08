@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView 
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:background="#ffffff">
+	<LinearLayout
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
+		<!-- The row of inputs at the top of the calculator activity -->    
+	    <LinearLayout
+	    android:id="@+id/inputLayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal">
+	    	<!-- The first input -->
+	    	<LinearLayout
+	    	android:id="@+id/fert_price_layout"
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:orientation="vertical">
+	    		<!--  The first input's input field -->
+	    	    <EditText
+		        android:id="@+id/fert_price_input"
+		        android:layout_width="10dp"
+		        android:layout_height="10dp"
+		        android:background="@drawable/input"
+		        android:hint="@string/input_1_hint"
+		        android:gravity="center"
+		        android:inputType="numberDecimal">
+	    		</EditText>
+	    		<!-- The first input's label -->
+	    		<TextView 
+	    		android:id="@+id/fert_price_label"
+	    		android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+	    		android:text="@string/input_1"
+	    		android:textSize="10dp"
+	    		android:textColor="#FFF"
+	    		android:gravity="center_horizontal"
+	    		android:background="@drawable/input_label"
+	    		android:shadowColor="#333"
+	    		android:shadowDx="1"
+	    		android:shadowDy="1"
+	    		android:shadowRadius="1"/>
+	    	</LinearLayout> <!-- End first input -->
+	    	<!-- The second input -->
+	        <LinearLayout
+	    	android:id="@+id/percent_n_layout"
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:orientation="vertical">
+	    		<!-- The second input's input field -->
+	            <EditText
+		    	android:id="@+id/percent_n_input"
+		    	android:layout_width="10dp"
+		        android:layout_height="10dp"
+		        android:background="@drawable/input"
+		        android:hint="@string/input_2_hint"
+		        android:gravity="center"
+		        android:inputType="number">        
+		    	</EditText>
+		    	<!-- The second input's label -->
+		    	<TextView 
+	    		android:id="@+id/percent_n_label"
+	    		android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+	    		android:text="@string/input_2"
+	    		android:textSize="10dp"
+	    		android:textColor="#FFF"
+	    		android:gravity="center_horizontal"
+	    		android:background="@drawable/input_label"
+	    		android:shadowColor="#333"
+	    		android:shadowDx="1"
+	    		android:shadowDy="1"
+	    		android:shadowRadius="1"/>
+	        </LinearLayout> <!-- End second input -->
+	        <!-- The third input -->
+	        <LinearLayout
+	    	android:id="@+id/corn_price_layout"
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:orientation="vertical">
+		    	<!-- The third input's input field -->
+	            <EditText
+		        android:id="@+id/corn_price_input"
+		        android:layout_width="10dp"
+		        android:layout_height="10dp"
+		        android:background="@drawable/input"
+		        android:hint="@string/input_3_hint"
+		        android:gravity="center"
+		        android:inputType="numberDecimal">        
+		    	</EditText>
+		    	<!-- The third input's label -->
+		    	<TextView 
+	    		android:id="@+id/corn_price_label"
+	    		android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+	    		android:text="@string/input_3"
+	    		android:textSize="10dp"
+	    		android:textColor="#FFF"
+	    		android:gravity="center_horizontal"
+	    		android:background="@drawable/input_label"
+	    		android:shadowColor="#333"
+	    		android:shadowDx="1"
+	    		android:shadowDy="1"
+	    		android:shadowRadius="1"/>
+	        </LinearLayout> <!-- End third input -->   	 	
+	    </LinearLayout> <!-- End row of inputs -->
+	    
+	    <!-- The row of calculated values (second row) -->
+	    <LinearLayout 
+	    android:id="@+id/calcValuesLayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_horizontal">
+	        <!-- The first calculated value (the next two TextViews) -->
+	        <TextView 
+	        android:id="@+id/percent_n_pound_label"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#FFF"
+	        android:textSize="10dp"
+	        android:gravity="center_horizontal"
+	        android:text="@string/percent_n_pound"
+	        android:background="@drawable/calc_value_label_background"
+	        android:shadowColor="#333"
+	   		android:shadowDx="1"
+	   		android:shadowDy="1"
+	   		android:shadowRadius="1"/>
+	        <TextView 
+	        android:id="@+id/percent_n_pound_value"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:textColor="#000"
+	        android:textSize="15dp"
+	        android:gravity="center_vertical"
+	        android:text="$5.30"
+	        android:background="@drawable/calc_value_background"/>
+	        
+	        <!-- The second calculated value (the next two TextViews -->
+	        <TextView 
+	        android:id="@+id/n_corn_label"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:textColor="#FFF"
+	        android:textSize="12dp"
+	        android:gravity="center"
+	        android:text="@string/n_corn_ratio"
+	        android:background="@drawable/calc_value_label_background"
+	        android:shadowColor="#333"
+	   		android:shadowDx="1"
+	   		android:shadowDy="1"
+	   		android:shadowRadius="1"/>
+	        <TextView 
+	        android:id="@+id/n_corn_value"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:textColor="#000"
+	        android:textSize="15dp"
+	        android:gravity="center_vertical"
+	        android:text="0.07"
+	        android:background="@drawable/calc_value_background"/>
+	    </LinearLayout>	    	    
+	</LinearLayout>
+</ScrollView>

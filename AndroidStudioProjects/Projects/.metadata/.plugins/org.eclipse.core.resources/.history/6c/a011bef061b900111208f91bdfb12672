@@ -1,0 +1,142 @@
+package ipcm.calc.nrate;
+
+import java.util.Date;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Display;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Scroller;
+import android.widget.TextView;
+
+public class Email extends Activity{
+
+	private EditText subjectInput;
+	private EditText textInput;
+	
+	@Override
+	protected void onResume()
+	{
+		subjectInput.setText(getSubjectLine());
+	    textInput.setText(getEmailText());
+	    
+	    super.onResume();
+	}
+	
+	/** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+    	super.onCreate(savedInstanceState);
+        setContentView(R.layout.email);		// Loads the layout from email.xml
+        
+        /*
+         * Layout code
+         */
+        
+        // The wrapper  layout
+        LinearLayout emailLayout = (LinearLayout) findViewById(R.id.email_layout);
+        
+        // Gets the current width and height of the display to use for layout
+        Display display = getWindowManager().getDefaultDisplay();
+        final int width = display.getWidth();
+        final int height = display.getHeight();
+        
+        // Sets the margins of the  main layout. Creates space around the white box.
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.topMargin = width/32;
+	    params.leftMargin = width/32;
+	    params.rightMargin = width/32;
+	    params.bottomMargin = width/32;
+	    
+	    emailLayout.setLayoutParams(params);
+	    emailLayout.setPadding(width/16, width/16, width/16, width/16);			// Sets padding on the inside of the white box
+	    
+	    // The linear layout for the subject line (TextView and EditText)
+	    //LinearLayout subjectLine = (LinearLayout) findViewById(R.id.subject_layout);
+	    
+	    // Gives the subject row space on the bottom
+	    //params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+	    //params.bottomMargin = width/32;
+	    
+	    //subjectLine.setLayoutParams(params);
+	    
+	    // The TextView that says "Subject:"
+	    TextView subjectHeader = (TextView) findViewById(R.id.subject_header);
+	    
+	    subjectHeader.setPadding(0, 0, width/32, 0);		// Gives the view padding on the right
+	    
+	    // The input for the subject line
+	    subjectInput = (EditText) findViewById(R.id.subject_input);
+	    
+	    // The input for the body of the email
+	    textInput = (EditText) findViewById(R.id.text_input);
+	    
+	    params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+	    params.bottomMargin = width/16;				// Adds padding below the body text input field
+	    
+	    textInput.setLayoutParams(params);
+	    
+	    // Sets the text of the inputs
+	    subjectInput.setText(getSubjectLine());
+	    textInput.setText(getEmailText());
+	    
+	    textInput.setScroller(new Scroller(this)); 
+	    //textInput.setMaxLines(1); 
+	    textInput.setVerticalScrollBarEnabled(true); 
+	    
+	    // The "OK" button
+	    Button sendButton = (Button) findViewById(R.id.send_button);
+	    
+	    // Sets the action to take the the "OK" button is clicked
+	    sendButton.setOnClickListener(new OnClickListener(){
+	    	
+	    	public void onClick(View v)
+	    	{
+	    		Intent intent = new Intent(Intent.ACTION_SEND);								// Sets the intent to be an email intent
+	    		intent.setType("plain/text");												// I don't know what this does but it's necessary
+	    		intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "" });					// The email address to send to. We don't know who the user will want to send it to.
+	    		intent.putExtra(Intent.EXTRA_SUBJECT, subjectInput.getText().toString());	// The subject line
+	    		intent.putExtra(Intent.EXTRA_TEXT, textInput.getText().toString());			// The body text
+	    		startActivity(Intent.createChooser(intent, ""));							// Starts the email activity, passing the given data with it
+	    	}
+	    	
+	    });
+	    
+	    
+    }
+    
+    /*
+     * Gets the subject line of the email, which consists of getting the date and time
+     */
+    private String getSubjectLine()
+    {
+    	Date date = new Date();
+    	
+    	String day = date.getMonth() + "/" + date.getDay() + "/" + date.getYear();
+    	String time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    	
+    	return "MRTN Report: " + day + " " + time;
+    }
+    
+    /*
+     * Gets the text of the email using the global variables defined in Main.java
+     */
+    private String getEmailText()
+    {
+    	return 	"N application rate: " + Main.applicationRate + " lbs N/acre\n" +
+    			"MRTN range: " + Main.range + "\n\n" +
+    			"Soil type: " + Main.soilType + "\n" +
+    			"Previous crop: " + Main.prevCrop + "\n\n" +
+    			"Fertilizer price: " + Main.fertPrice + "/ton\n" +
+    			"Percent Nitrogen: " + Main.nPercent + "\n" +
+    			"Corn price: " + Main.cornPrice + "/bushel\n\n" + 
+    			"Nitrogren price: " + Main.nPrice + "/lb\n" + 
+    			"N:Corn ratio: " + Main.ratio;    			
+    }
+}

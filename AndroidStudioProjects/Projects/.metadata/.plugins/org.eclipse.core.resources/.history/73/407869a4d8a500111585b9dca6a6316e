@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style name="CustomTabWidgetText" 
+    parent="@android:style/TextAppearance.Widget.TabWidget">
+    <item name="android:textSize">20sp</item>
+    <item name="android:textStyle">bold</item>
+</style>

@@ -1,0 +1,121 @@
+package ipcm.tool.kit;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import android.app.ListActivity;
+import android.os.Bundle;
+
+public class Publications extends ListActivity{
+	
+	private ArrayList<Publication> publications;
+	DataHelper db;
+	ListView list;
+
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.publications);
+		
+		publications = new ArrayList<Publication>();
+		db = new DataHelper(this);
+		list = getListView();
+		
+		publications = updatePublicationList();
+		
+	}
+	
+	// Get an input stream from a given URL
+	public InputStream getInputStream(URL url)
+	{
+		try{
+			return url.openConnection().getInputStream();
+		}catch(IOException e){
+			return null;
+		}
+	}
+	
+	// Return the minimum value in a set of two numbers
+	private int min(int a, int b)
+	{
+	  if(a < b)
+		  return a;
+	  else
+		  return b;
+	}
+	
+	// Returns an updated list of CropManagerArticles read from the internet
+	private ArrayList<Publication> updatePublicationList()
+	{		
+		ArrayList<Publication> pubs = new ArrayList<Publication>();
+		ArrayList<String> titles = new ArrayList<String>();
+		ArrayList<String> links = new ArrayList<String>();
+		
+		if(db.getTimeSince(DataHelper.ROW_PUBLICATIONS) > 3600000){
+			
+			try{
+				
+				URL url = new URL("http://ipcm.wisc.edu/blog/category/toolkit/feed/");
+				
+				XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+				factory.setNamespaceAware(false);
+				XmlPullParser xpp = factory.newPullParser();
+				
+				xpp.setInput(getInputStream(url), "UTF_8");
+				
+				boolean insideItem = false;
+				int eventType = xpp.getEventType();
+				
+				while(eventType != XmlPullParser.END_DOCUMENT){
+					if(eventType == XmlPullParser.START_TAG){
+						if(xpp.getName().equalsIgnoreCase("item")){
+							insideItem = true;
+						} else if(xpp.getName().equalsIgnoreCase("title")){
+							if(insideItem)
+								titles.add(xpp.nextText());
+						} else if(xpp.getName().equalsIgnoreCase("link")){
+							if(insideItem)
+								links.add(xpp.nextText());
+						}
+						
+					} else if(eventType == XmlPullParser.END_TAG &&
+										xpp.getName().equalsIgnoreCase("item")){
+						insideItem = false;
+					}
+					
+					eventType = xpp.next();
+				}
+				
+				int min = min(titles.size(), links.size());
+				for(int i = 0; i < min; i++)
+				{
+					pubs.add(new Publication(titles.get(i), links.get(i)));
+				}			
+				
+			}catch(MalformedURLException e){
+				e.printStackTrace();
+			}catch(XmlPullParserException e){
+				e.printStackTrace();
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+			
+			db.savePublications(pubs);			
+			db.updateTime(DataHelper.ROW_PUBLICATIONS);
+			
+		}else{
+			pubs = db.getAllPublications();
+		}		
+		
+		return pubs;
+		
+	}
+	
+}

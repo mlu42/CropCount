@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Defines the layout for the main screen
+	 consisting of just a tab host and a place
+	 for the activities to go. -->
+
+<!-- The TabHost -->
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <!-- The layout holding the frame layout and the tabs below it -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"            
+       	android:background="@drawable/background"
+        android:padding="0dp">
+        <!-- The tabs, aligned to the bottom of the screen -->
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#444"/> 
+        <!-- The frame layout where activities are held -->
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>				<!-- Ensures that the tabs are aligned to the bottom of the screen -->
+               
+    </LinearLayout>
+</TabHost>

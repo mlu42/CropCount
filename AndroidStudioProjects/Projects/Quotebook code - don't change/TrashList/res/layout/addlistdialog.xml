@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+         android:orientation="vertical"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent" 
+         android:padding="10dp"
+         android:minWidth="280dip"       
+         >
+         <TextView
+         android:id="@+id/title"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" 
+         android:text="Create New List"
+         android:layout_marginBottom="5dp"
+         android:textSize="18sp"
+         android:textColor="#FFFFFF"
+         />
+         <TextView
+         android:id="@+id/label"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" 
+         android:text="Name the list"
+         android:layout_marginBottom="5dp"
+         android:textSize="18sp"
+         />
+         <EditText
+         android:id="@+id/nameOfList"
+         android:hint="Name"
+         android:padding="10dp"        
+         />
+         <!--  android:layout_width="fill_parent"
+         //android:layout_height="wrap_content"-->
+         
+     	
+ </LinearLayout>

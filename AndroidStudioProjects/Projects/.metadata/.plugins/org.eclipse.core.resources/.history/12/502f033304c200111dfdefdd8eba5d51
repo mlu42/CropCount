@@ -1,0 +1,12 @@
+package ipcm.calc.nprice;
+
+public class Price {
+	
+	// Instance variables
+	private long id;
+	private String fertprice;
+	private String npercent;
+	private String price;
+	private String description;
+
+}

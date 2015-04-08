@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, NPriceCalculatorActivity!</string>
+    <string name="app_name">N Price Calculator</string>
+    <string name="fert_price_label">$/ton of fertilizer</string>
+    <string name="fert_price_hint">0</string>
+    <string name="n_percent_label">% Nitrogen</string>
+    <string name="n_percent_hint">0</string>
+    <string name="fert1">Ammonium Nitrate (34% N)</string>
+    <string name="fert2">Ammonium Sulfate (21% N)</string>
+    <string name="fert3">Anhydrous Ammonia (82% N)</string>
+    <string name="fert4">Urea (46% N)</string>
+    <string name="fert5">Urea Ammonium Nitrate (28% N)</string>
+    <string name="fert6">Urea Ammonium Nitrate (32% N)</string>
+    <string name="result_default">$0.00/lb N</string>
+    <string name="result_explanation">based on $789 per ton at 82%</string>
+    <string name="button_1">Add to list</string>
+    <string name="button_2">Compare prices</string>
+    <string name="header_text">Price list</string>
+
+</resources>

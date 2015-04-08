@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Encapsulate field &apos;ipcm.tool.kit.PhotoGallery.pictures&apos; in &apos;ipcm.tool.kit.PhotoGallery&apos;&#x0D;&#x0A;- Original project: &apos;IPM Toolkit&apos;&#x0D;&#x0A;- Original element: &apos;ipcm.tool.kit.PhotoGallery.pictures&apos;&#x0D;&#x0A;- Getter method name: &apos;getPictureList&apos;&#x0D;&#x0A;- Setter method name: &apos;setPictureList&apos;&#x0D;&#x0A;- Field visibility: &apos;public&apos;&#x0D;&#x0A;- Use getter and setter methods in declaring type" comments="false" declaring="true" description="Encapsulate field &apos;pictures&apos;" flags="589830" getter="getPictureList" id="org.eclipse.jdt.ui.self.encapsulate" input="/src&lt;ipcm.tool.kit{PhotoGallery.java[PhotoGallery^pictures" insertion="5" setter="setPictureList" stamp="1356373970727" version="1.0" visibility="1"/>
+</session>

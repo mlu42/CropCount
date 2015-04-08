@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Defines the layout for the activity that shows up
+	 when the Email tab is active -->
+
+<!-- Makes the activity scrollable -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content">
+	<!-- A wrapper that is necessary for the sake of having a parent for the main layout -->
+	<LinearLayout
+    android:id="@+id/wrapper"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">	
+		<!-- The main LinearLayout -->
+	    <LinearLayout
+		    android:id="@+id/email_layout"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:background="@drawable/email_background">
+		    	<!-- A layout for the subject line -->
+		    	<LinearLayout
+			    android:id="@+id/subject_layout"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal">
+			    	<!-- The label that says Subject: -->
+				    <TextView
+				    android:id="@+id/subject_header"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/subject_header"
+				    android:textColor="@color/black"/>
+				    <!-- The subject input -->
+			    	<EditText 
+			    	android:id="@+id/subject_input"
+			    	android:layout_width="fill_parent"
+			    	android:layout_height="wrap_content"
+			    	android:lines="1"
+			    	android:hint="@string/subject"
+			    	android:scrollHorizontally="true"/>
+			    </LinearLayout>
+			    <!-- The label that says Text: -->
+			    <TextView
+			    android:id="@+id/text_header"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:text="@string/text_header"
+			    android:textColor="@color/black"/>
+			    <!-- The body text input -->
+			    <EditText 
+		    	android:id="@+id/text_input"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="wrap_content"
+		    	android:hint="@string/body_text"
+		    	android:lines="8"
+		    	android:scrollbars="vertical"/>
+		    	<!-- The button that goes to the default email application -->
+			    <Button
+			    android:id="@+id/send_button"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:text="@string/okay"/>	    	    
+		</LinearLayout>
+	</LinearLayout>
+</ScrollView>
+
+	

@@ -1,0 +1,76 @@
+package ipcm.calc.nrate;
+
+import android.widget.TextView;
+
+/*
+ * A three state toggle button class for use in the
+ * Calculator activity of this app. I will program
+ * this class specifically for TextViews as that is
+ * what I'll be using it for. If it needs to be
+ * programmed more generically, that can be done.
+ */
+
+public class ThreeStateToggle {
+	
+	// Instance Variables
+	private TextView left;		// The first TextView 
+	private TextView middle;	// The middle TextView
+	private TextView right;		// The last TextView
+	private boolean leftSet;	// True if the left switch is set
+	private boolean middleSet;	// True if the middle switch is set
+	private boolean rightSet;	// True if the right switch is set
+	private int leftImage;		// The drawable for the left image
+	
+	// The empty constructor
+	public ThreeStateToggle()
+	{
+		left = null;
+		middle = null;
+		right = null;
+		leftSet = false;
+		middleSet = false;
+		rightSet = false;
+	}
+	
+	// Takes three TextView arguments and sets the left switch to
+	// be on by default.
+	public ThreeStateToggle(TextView a, TextView b, TextView c)
+	{
+		left = a;
+		middle = b;
+		right = c;
+		leftSet = true;
+		middleSet = false;
+		rightSet = false;
+	}
+	
+	// Takes three TextView arguments and an int argument which indicates
+	// which switch should be set (0, 1, 2 for left, middle, right)
+	public ThreeStateToggle(TextView a, TextView b, TextView c, int set)
+	{
+		left = a;
+		middle = b;
+		right = c;
+		
+		// Decide which switch to set
+		switch(set)
+		{
+			case 0:	leftSet = true;
+					middleSet = false;
+					rightSet = false;
+					break;
+					
+			case 1: leftSet = false;
+					middleSet = true;
+					rightSet = false;
+					break;
+					
+			case 2: leftSet = false;
+					middleSet = false;
+					rightSet = true;
+					break;
+		}
+		
+	}
+	
+}

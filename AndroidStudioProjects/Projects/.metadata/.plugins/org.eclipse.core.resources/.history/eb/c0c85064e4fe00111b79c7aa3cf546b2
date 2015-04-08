@@ -1,0 +1,89 @@
+package ipcm.tool.kit;
+
+import android.app.ListActivity;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class Pictures extends ListActivity{
+
+	private TextView startsWith;
+	private TextView contains;
+	private TextView collection;
+	private EditText searchBar;
+	private int searchOption = 0;
+	
+	
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.pictures);
+		
+		final Resources res = getResources();
+		
+		startsWith = (TextView) findViewById(R.id.startsWith);
+		contains = (TextView) findViewById(R.id.contains);
+		collection = (TextView) findViewById(R.id.collection);
+		searchBar = (EditText) findViewById(R.id.searchbar);
+		
+		// The behavior of the crop manager button when clicked
+		startsWith.setOnClickListener( new OnClickListener(){
+			
+			public void onClick(View v)
+			{
+				searchOption = 0;
+				
+				startsWith.setBackgroundColor(res.getColor(R.color.black));
+				contains.setBackgroundColor(res.getColor(R.color.dark_grey));	
+				collection.setBackgroundColor(res.getColor(R.color.dark_grey));	
+			}
+			
+		});
+		
+		// The behavior of the crop manager button when clicked
+		contains.setOnClickListener( new OnClickListener(){
+			
+			public void onClick(View v)
+			{
+				searchOption = 1;
+				
+				startsWith.setBackgroundColor(res.getColor(R.color.dark_grey));
+				contains.setBackgroundColor(res.getColor(R.color.black));	
+				collection.setBackgroundColor(res.getColor(R.color.dark_grey));	
+			}
+			
+		});
+		
+		// The behavior of the crop manager button when clicked
+		collection.setOnClickListener( new OnClickListener(){
+			
+			public void onClick(View v)
+			{
+				searchOption = 2;
+				
+				startsWith.setBackgroundColor(res.getColor(R.color.dark_grey));
+				contains.setBackgroundColor(res.getColor(R.color.dark_grey));	
+				collection.setBackgroundColor(res.getColor(R.color.black));	
+			}
+			
+		});
+		
+		searchBar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+		    @Override
+		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+		        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+		            //performSearch();
+		            return true;
+		        }
+		        return false;
+		    }
+		});
+		
+	}
+	
+}

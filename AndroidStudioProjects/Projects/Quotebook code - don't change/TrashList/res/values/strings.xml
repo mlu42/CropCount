@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World!</string>
+    <string name="app_name">Grocery List</string>
+<string name="no_lists">No lists saved. \n Add one by pressing the menu button.</string>
+<string-array name="items">
+	<item>Apples</item>
+	<item>Bananas</item>
+	<item>Oranges</item>
+	<item>Grapes</item>
+	<item>Carrots</item>
+	<item>Onions</item>
+	<item>Potatoes</item>
+	<item>Cauliflower</item>
+	<item>Lettuce</item>
+	<item>Tomatoes</item>
+	<item>Cucumber</item>
+	<item>Radishes</item>
+	<item>Zucchini</item>
+	<item>Squash</item>
+	<item>Broccoli</item>
+</string-array>
+</resources>

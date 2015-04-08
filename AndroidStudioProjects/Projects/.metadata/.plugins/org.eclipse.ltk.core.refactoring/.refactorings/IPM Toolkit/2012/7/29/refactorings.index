@@ -1,0 +1,6 @@
+1342461638391	Rename resource 'colors.xml'
+1342542068642	Rename type 'PriceAdapter'
+1342542188794	Encapsulate field 'title'
+1342542196016	Encapsulate field 'date'
+1342542201040	Encapsulate field 'time'
+1342543531591	Delete element

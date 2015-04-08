@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, MainPage!</string>
+    <string name="app_name">Quotebook</string>
+
+<string name="no_lists">There are no lists saved.</string>
+</resources>

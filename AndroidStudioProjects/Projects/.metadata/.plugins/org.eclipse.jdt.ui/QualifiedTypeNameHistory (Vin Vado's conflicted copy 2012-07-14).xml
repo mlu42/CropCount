@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="android.view.ViewGroup"/>
+<fullyQualifiedTypeName name="android.util.TypedValue"/>
+<fullyQualifiedTypeName name="ipcm.calc.nrate.R"/>
+<fullyQualifiedTypeName name="android.text.TextUtils.StringSplitter"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.util.regex.Pattern"/>
+<fullyQualifiedTypeName name="ipcm.calc.nrate.R.drawable"/>
+<fullyQualifiedTypeName name="ipcm.calc.nrate.R.color"/>
+<fullyQualifiedTypeName name="ipcm.calc.nrate.R.string"/>
+<fullyQualifiedTypeName name="android.view.ViewGroup.LayoutParams"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="android.widget.LinearLayout"/>
+<fullyQualifiedTypeName name="android.widget.LinearLayout.LayoutParams"/>
+<fullyQualifiedTypeName name="ipcm.calc.nprice.R.drawable"/>
+<fullyQualifiedTypeName name="ipcm.calc.nrate.R.id"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.view.WindowManager"/>
+<fullyQualifiedTypeName name="android.view.WindowManager.LayoutParams"/>
+<fullyQualifiedTypeName name="java.util.Locale"/>
+<fullyQualifiedTypeName name="ipcm.calc.nprice.R.color"/>
+<fullyQualifiedTypeName name="android.view.Gravity"/>
+<fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="android.R.layout"/>
+<fullyQualifiedTypeName name="ipcm.calc.nprice.R.id"/>
+</qualifiedTypeNameHistroy>

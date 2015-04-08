@@ -1,0 +1,441 @@
+package ipcm.tool.kit;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import android.app.ListActivity;
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
+
+import com.google.code.rome.android.repackaged.com.sun.syndication.feed.synd.SyndEntry;
+import com.google.code.rome.android.repackaged.com.sun.syndication.feed.synd.SyndFeed;
+import com.google.code.rome.android.repackaged.com.sun.syndication.io.SyndFeedInput;
+import com.google.code.rome.android.repackaged.com.sun.syndication.io.XmlReader;
+
+public class Videos extends ListActivity{
+
+	DataHelper db = new DataHelper(this);
+	final Context context = this;
+	ArrayList<Playlist> playlists = new ArrayList<Playlist>();
+	ArrayList<YoutubeVideo> videos = new ArrayList<YoutubeVideo>();
+	ListView list;
+	Spinner spinner;
+	
+	public void onResume()
+	{
+		super.onResume();
+	}
+	
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.videos);
+		
+		final Resources res = getResources();
+		spinner = (Spinner) findViewById(R.id.playlist_spinner);
+		db.openForWrite();		
+		list = getListView();
+		list.setCacheColorHint(Color.TRANSPARENT);
+		
+		allVideos(list);
+		
+		ArrayList<String> playlistNames = getPlaylistNames();
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, playlistNames);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(adapter);
+
+		list.setAdapter( new YoutubeAdapter(this, R.layout.articleitem, videos));		
+		
+		db.close();
+		
+
+		
+		spinner.setOnItemSelectedListener( new OnItemSelectedListener(){			
+
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int pos, long id) {
+				
+	//				switch(pos)
+	//				{
+	//				case 0:	list.setAdapter( new YoutubeAdapter(context, R.layout.articleitem, updateAllVideoList()));
+	//						break;
+	//				case 1:	list.setAdapter( new YoutubeAdapter(context, R.layout.articleitem, updateCropHealthFertilityList()));
+	//						break;
+	//				case 2: list.setAdapter( new YoutubeAdapter(context, R.layout.articleitem, updatePestsAndScoutingList()));
+	//						break;
+	//				case 3: list.setAdapter( new YoutubeAdapter(context, R.layout.articleitem, updateInvasiveWeedsList()));
+	//						break;
+	//				default: 	list.setAdapter( new YoutubeAdapter(context, R.layout.articleitem, updateAllVideoList()));
+	//							break;
+	//				}
+				
+				
+			}
+	
+			public void onNothingSelected(AdapterView<?> arg0) {
+				
+			}
+		
+		});
+	}
+	
+	public void onStart()
+	{
+		super.onStart();
+		allVideos(list);
+		
+		ArrayList<String> playlistNames = getPlaylistNames();
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, playlistNames);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(adapter);
+	}
+	
+	public InputStream getInputStream(URL url)
+	{
+		try{
+			return url.openConnection().getInputStream();
+		}catch(IOException e){
+			return null;
+		}
+	}
+	
+	public void getPlaylists()
+	{
+		playlists.clear();		
+		
+		ArrayList<String> names = new ArrayList<String>();
+		ArrayList<String> urls = new ArrayList<String>();
+		
+		try{
+			
+			URL url = new URL("https://gdata.youtube.com/feeds/api/users/uwipm/playlists?v=2");
+			
+			XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+			factory.setNamespaceAware(false);
+			XmlPullParser xpp = factory.newPullParser();
+			
+			xpp.setInput(getInputStream(url), "UTF_8");
+			
+			boolean insideItem = false;
+			int eventType = xpp.getEventType();
+			
+			while(eventType != XmlPullParser.END_DOCUMENT){
+				if(eventType == XmlPullParser.START_TAG){
+					if(xpp.getName().equalsIgnoreCase("entry")){
+						insideItem = true;
+					} else if(xpp.getName().equalsIgnoreCase("title")){
+						if(insideItem)
+							names.add(xpp.nextText());
+					} else if(xpp.getName().equalsIgnoreCase("link")){
+						if(insideItem)
+							urls.add(xpp.nextText());
+					}
+					
+				} else if(eventType == XmlPullParser.END_TAG &&
+									xpp.getName().equalsIgnoreCase("entry")){
+					insideItem = false;
+				}
+				
+				eventType = xpp.next();
+			}
+			
+			for(int i = 0; i < min(names.size(), urls.size()); i++)
+			{
+				Log.d("url", names.get(i));
+				playlists.add(new Playlist(names.get(i), urls.get(i)));
+			}			
+			
+			
+		}catch(MalformedURLException e){
+			e.printStackTrace();
+		}catch(XmlPullParserException e){
+			e.printStackTrace();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		
+		/*db.openForWrite();
+		playlists.clear();
+			
+		try{
+			
+			URL feedUrl = new URL("https://gdata.youtube.com/feeds/api/users/uwipm/playlists?v=2");
+			
+			SyndFeedInput input = new SyndFeedInput();
+			SyndFeed feed = input.build( new XmlReader(feedUrl));
+			
+			List<SyndEntry> entries = feed.getEntries();
+			
+			Iterator<SyndEntry> iter = entries.iterator();
+			
+			playlists.add(new Playlist("All playlists", ""));
+			
+			while(iter.hasNext())
+			{
+				SyndEntry curr = iter.next();
+				
+				playlists.add(new Playlist(curr.getTitle(), curr.getLink()));
+			}
+			
+			db.saveAllPlaylists(playlists);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+			
+		db.close();*/
+	}
+	
+	private int min(int a, int b)
+	{
+	  if (b < a) {
+          return b;
+      }
+	  else {
+		  return a;
+	  }
+	}
+	
+	private int min(int a, int b, int c)
+	{
+	  if (b < a) {
+          a = b;
+      }
+      if (c < a) {
+          a = c;
+      }
+      return a;
+	}
+	
+	public ArrayList<String> getPlaylistNames()
+	{
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("All playlists");
+		
+		for(Playlist list: playlists)
+		{
+			names.add(list.getTitle());
+		}
+		
+		return names;
+	}
+	
+	public void allVideos(ListView _list)
+	{
+		db.openForWrite();
+		videos.clear();
+		
+		if(db.getTimeSince(db.ROW_ALLPLAYLISTS) > 3600)
+		{			
+			getPlaylists();
+			
+			for(Playlist playlist: playlists)
+			{				
+				ArrayList<String> titles = new ArrayList<String>();
+				ArrayList<String> playlists = new ArrayList<String>();
+				ArrayList<String> urls = new ArrayList<String>();
+				
+				try{
+					
+					Log.d("currURL", playlist.getUrl());					
+					URL url = new URL(playlist.getUrl());
+					
+					XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+					factory.setNamespaceAware(false);
+					XmlPullParser xpp = factory.newPullParser();
+					
+					xpp.setInput(getInputStream(url), "UTF_8");
+					
+					boolean insideItem = false;
+					int eventType = xpp.getEventType();
+					
+					while(eventType != XmlPullParser.END_DOCUMENT){
+						if(eventType == XmlPullParser.START_TAG){
+							if(xpp.getName().equalsIgnoreCase("entry")){
+								insideItem = true;
+							} else if(xpp.getName().equalsIgnoreCase("title")){
+								if(insideItem)
+								{
+									Log.d("title", "foundTitle");
+									titles.add(xpp.nextText());
+									playlists.add(playlist.getTitle());
+								}
+							} else if(xpp.getName().equalsIgnoreCase("media:thumbnail")){
+								if(insideItem){
+									Log.d("url", "foundUrl");
+									urls.add(xpp.getAttributeValue(0));
+								}
+							}
+							
+						} else if(eventType == XmlPullParser.END_TAG &&
+											xpp.getName().equalsIgnoreCase("entry")){
+							insideItem = false;
+						}
+						
+						eventType = xpp.next();
+					}
+					
+					for(int i = 0; i < min(titles.size(), playlists.size(), urls.size()); i++)
+					{
+						videos.add(new YoutubeVideo(titles.get(i), playlists.get(i), urls.get(i)));
+					}			
+					
+					
+				}catch(MalformedURLException e){
+					e.printStackTrace();
+				}catch(XmlPullParserException e){
+					e.printStackTrace();
+				}catch(IOException e){
+					e.printStackTrace();
+				}				
+			}
+
+			db.openForWrite();
+			db.updateTime(db.ROW_ALLPLAYLISTS);
+			db.saveAllYoutubeVids(videos);
+			
+		}
+		else
+		{
+			getPlaylists();
+			videos = db.getAllYoutubeVideos();
+		}
+		
+
+		db.close();
+	}
+	
+//	private ArrayList<YoutubeVideo> updatePestsAndScoutingList()
+//	{
+//		DataHelper db = new DataHelper(this).openForWrite();
+//		ArrayList<YoutubeVideo> videos = new ArrayList<YoutubeVideo>();
+//		
+//		if(db.getTime(db.ROW_PESTS) > 3600000)
+//		{
+//			try{
+//				URL feedUrl = new URL("http://gdata.youtube.com/feeds/api/playlists/303519A632D4A923");
+//				
+//				SyndFeedInput input = new SyndFeedInput();
+//				SyndFeed feed = input.build( new XmlReader(feedUrl));
+//				
+//				List<SyndEntry> entries = feed.getEntries();
+//				
+//				Iterator<SyndEntry> iter = entries.iterator();
+//				
+//				while(iter.hasNext())
+//				{
+//					SyndEntry curr = iter.next();
+//					
+//					videos.add(new YoutubeVideo(curr.getTitle(), "Pests and scouting"));
+//				}
+//			}catch(Exception e){
+//				e.printStackTrace();
+//			}
+//			
+//			db.updateTime(db.ROW_PESTS);
+//			db.close();
+//		}
+//		else
+//		{
+//			videos = db.getAllYoutubeVideos();
+//			
+//			for(YoutubeVideo vid: videos)
+//			{
+//				if(!vid.getPlaylist().equals("Pests and scouting"))
+//				{
+//					videos.remove(vid);
+//				}
+//			}
+//		}
+//		
+//		
+//		return videos;
+//	}
+//	
+//	private ArrayList<YoutubeVideo> updateCropHealthFertilityList()
+//	{
+//
+//		ArrayList<YoutubeVideo> videos = new ArrayList<YoutubeVideo>();
+//		
+//		try{
+//			URL feedUrl = new URL("http://gdata.youtube.com/feeds/api/playlists/F17555C62D9A378B");
+//			
+//			SyndFeedInput input = new SyndFeedInput();
+//			SyndFeed feed = input.build( new XmlReader(feedUrl));
+//			
+//			List<SyndEntry> entries = feed.getEntries();
+//			
+//			Iterator<SyndEntry> iter = entries.iterator();
+//			
+//			while(iter.hasNext())
+//			{
+//				SyndEntry curr = iter.next();
+//				
+//				videos.add(new YoutubeVideo(curr.getTitle()));
+//			}
+//			
+////			Log.d("feed", feed.toString());
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
+//		
+//		return videos;
+//	}
+//	
+//	private ArrayList<YoutubeVideo> updateInvasiveWeedsList()
+//	{
+//
+//		ArrayList<YoutubeVideo> videos = new ArrayList<YoutubeVideo>();
+//		
+//		try{
+//			URL feedUrl = new URL("http://gdata.youtube.com/feeds/api/playlists/FD4F11EEE799E158");
+//			
+//			SyndFeedInput input = new SyndFeedInput();
+//			SyndFeed feed = input.build( new XmlReader(feedUrl));
+//			
+//			List<SyndEntry> entries = feed.getEntries();
+//			
+//			Iterator<SyndEntry> iter = entries.iterator();
+//			
+//			while(iter.hasNext())
+//			{
+//				SyndEntry curr = iter.next();
+//				
+//				videos.add(new YoutubeVideo(curr.getTitle()));
+//			}
+//			
+////			Log.d("feed", feed.toString());
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
+//		
+//		return videos;
+//	}
+//	
+//	private ArrayList<YoutubeVideo> updateAllVideoList()
+//	{
+//		ArrayList<YoutubeVideo> list = updateInvasiveWeedsList();
+//		list.addAll(updateCropHealthFertilityList());
+//		list.addAll(updatePestsAndScoutingList());
+//		return list;
+//	}
+	
+}

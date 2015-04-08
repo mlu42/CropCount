@@ -1,0 +1,48 @@
+package ipcm.tool.kit;
+
+public class Collection {
+
+	private String id;
+	private String title;
+	private String collOrSub;
+	private String number;
+	
+	public Collection(String _title, String _collOrSub, String _number)
+	{
+		setTitle(_title);
+		setCollOrSub(_collOrSub);
+		setNumber(_number);
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getCollOrSub() {
+		return collOrSub;
+	}
+
+	public void setCollOrSub(String collOrSub) {
+		this.collOrSub = collOrSub;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+}

@@ -1,0 +1,29 @@
+package ipcm.calc.nprice;
+
+public class Price {
+	
+	// Instance variables
+	private long id;
+	private String fertprice;
+	private String npercent;
+	private String price;
+	private String description;
+	
+	// Constructors
+	public Price()
+	{
+		id = -1;
+		fertprice = null;
+		npercent = null;
+		price = null;
+		description = null;
+	}
+	
+	public Price(String _fertprice, String _npercent, String _price, String _description, long _id)
+	{
+		
+	}
+	// Getters & setters
+	
+
+}

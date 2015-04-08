@@ -1,0 +1,58 @@
+package ipcm.calc.nprice;
+
+import java.util.ArrayList;
+
+import android.app.ListActivity;
+import android.content.Context;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.view.Display;
+import android.widget.ListView;
+import android.widget.TextView;
+
+public class PriceList extends ListActivity {
+
+    // Instance variables
+	private ArrayList<Price> prices;
+	int resID = R.layout.priceitem;
+	long sId = 0;
+	Context context = this;
+	final DataHelper dataHelper = new DataHelper(this);
+	
+	public ArrayList<Price> updateList()
+    {
+	    dataHelper.openForRead();
+		prices = new ArrayList<Price>();					
+		Cursor allCursor = dataHelper.getAllPrices();			
+		int count = allCursor.getCount();
+		for(int i = 0; i < count; i++)
+		{
+			prices.add(dataHelper.getQuote(allCursor, i));			
+		}		
+		return prices;		
+    }
+	
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.pricelist);       
+        
+        TextView header = (TextView) findViewById(R.id.header);
+        ListView list = getListView();
+        
+        // Gets the width and height of the display we are working with
+        Display display = getWindowManager().getDefaultDisplay();
+        final int width = display.getWidth();
+        final int height = display.getHeight();
+        
+        header.setPadding(width/24, width/24, 0, width/24);
+        
+        list.setAdapter(new PriceAdapter(this, resID, updateList()));			
+		dataHelper.close();
+		
+		dataHelper.openForWrite();
+		dataHelper.insertPrice("0.48", "82", "789", "Anhydrous Ammonia");
+        
+    }
+}

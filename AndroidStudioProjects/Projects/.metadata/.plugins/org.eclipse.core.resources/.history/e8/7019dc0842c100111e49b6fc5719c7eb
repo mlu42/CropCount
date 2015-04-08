@@ -1,0 +1,38 @@
+package ipcm.calc.nprice;
+
+import android.R;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Display;
+import android.view.Gravity;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+public class PriceList extends Activity {
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(0x7f030001);
+        
+        TextView header = (TextView) findViewById(0x7f060013);
+        ListView list = (ListView) findViewById(R.id.list);
+        
+        // Build the empty view for the list
+        TextView emptyView = new TextView(this);
+        emptyView.setText("No prices saved.");
+        emptyView.setTextColor(R.color.black);
+        emptyView.setGravity(Gravity.CENTER);
+        list.setEmptyView(emptyView);
+        list.setAdapter(new ArrayAdapter(this, R.layout.simple_list_item_1));
+        
+        // Gets the width and height of the display we are working with
+        Display display = getWindowManager().getDefaultDisplay();
+        final int width = display.getWidth();
+        final int height = display.getHeight();
+        
+        header.setPadding(width/24, width/24, 0, width/24);
+        
+    }
+}

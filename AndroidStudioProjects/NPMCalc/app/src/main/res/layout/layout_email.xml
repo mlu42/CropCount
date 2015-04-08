@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_green"
+    android:orientation="vertical">
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/subject_line_layout"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:orientation="vertical"-->
+
+
+        <!--android:padding="45dp">-->
+
+
+        <!--<Button-->
+            <!--android:id="@+id/manure_button"-->
+
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_margin="20dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/email_button"-->
+
+            <!--android:drawableLeft="@drawable/ic_action_send_now"-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:padding="60dp"-->
+            <!--android:text="Manure Report"-->
+
+
+            <!--android:textColor="@color/text_green" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/legume_button"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_margin="20dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/email_button"-->
+
+
+            <!--android:drawableLeft="@drawable/ic_action_send_now"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="60dp"-->
+            <!--android:text="Legume Report"-->
+
+
+            <!--android:textColor="@color/text_green" />-->
+
+
+    <!--</LinearLayout>-->
+
+
+    <LinearLayout
+    android:id="@+id/subject_line_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20px"
+    android:orientation="horizontal"
+    >
+
+
+    <Button
+    android:id="@+id/manure_button"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:background="@drawable/toggle_left_button_unselected"
+    android:gravity="center"
+    android:padding="10dp"
+       android:layout_margin="5px"
+    android:text="Manure Report"
+    android:textColor="@color/text_green" />
+
+    <Button
+    android:id="@+id/legume_button"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+
+    android:layout_weight="1"
+  android:layout_margin="5px"
+    android:background="@drawable/toggle_right_button_unselected"
+    android:gravity="center"
+    android:padding="10dp"
+    android:text="Legume Report"
+    android:textColor="@color/text_green" />
+
+
+    </LinearLayout>
+
+
+    <WebView
+        android:id="@+id/credits_webview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        />
+
+</LinearLayout>

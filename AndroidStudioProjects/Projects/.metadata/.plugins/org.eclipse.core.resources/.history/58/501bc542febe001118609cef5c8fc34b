@@ -1,0 +1,9 @@
+In this text file, I keep track of bugs that need to be fixed.
+
+Bugs to fix:
+
+	- Android OS keeps keyboard on when activity changes
+	- Still needs a launcher icon
+	- The hints for the inputs need to be changed
+	- Crashes when inputting into corn price (when inputting a decimal manually)
+	- Doesn't fill entire screen on large screen

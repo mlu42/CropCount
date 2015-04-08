@@ -1,0 +1,7 @@
+In this text file, I keep track of bugs that need to be fixed.
+
+Bugs to fix:
+
+	- Android OS keeps keyboard on when activity changes
+	- Still needs a launcher icon
+	- Doesn't fill entire screen on large screen

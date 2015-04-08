@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!-- This XML file defines default colors to be used in the app. -->
+    
+    <color name="white">#FFFF</color>								<!-- A simple white -->
+    <color name="black">#F000</color>								<!-- A simple black -->
+    <color name="dark_grey">#444</color>
+    <color name="toggle_background_selected">#FF557F00</color>		<!-- A dark green as found in the Android design guidelines -->
+    <color name="toggle_background_unselected">#FF8ABD00</color>	<!-- A lighter green as found in the Android design guidelines -->
+    
+    
+</resources>

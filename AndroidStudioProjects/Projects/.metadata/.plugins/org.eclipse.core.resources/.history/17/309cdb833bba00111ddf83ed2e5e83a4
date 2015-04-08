@@ -1,0 +1,6 @@
+In this text file, I keep track of bugs that need to be fixed.
+
+Bugs to fix:
+
+	- Maximum value on corn price per bushel ($20, $19.99)
+	- Change default results to 000, 000 --- 000

@@ -1,0 +1,6 @@
+In this text file, I keep track of bugs that need to be fixed.
+
+Bugs to fix:
+
+	- Dynamic labels for toggles
+	- Android OS keeps keyboard on when activity changes

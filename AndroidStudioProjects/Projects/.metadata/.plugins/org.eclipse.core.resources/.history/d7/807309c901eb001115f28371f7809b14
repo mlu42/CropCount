@@ -1,0 +1,45 @@
+package ipcm.tool.kit;
+
+import android.util.Log;
+
+public class Playlist {
+	
+	private String title;
+	private String url;
+	
+	public Playlist(String _title, String _url)
+	{
+		Log.d("url", "url");
+		setTitle(_title);
+		if(_url.contains("?p="))
+		{
+			_url = _url.substring(_url.indexOf("?p=") + 3);
+			_url = "http://gdata.youtube.com/feeds/api/playlists/" + _url;
+		}
+		else
+		{
+			_url = "";
+		}
+		
+		setUrl(_url);
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+	
+
+}

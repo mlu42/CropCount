@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Defines the layout for the main Calculator activity that
+	 is visible when the Calculator tab is active -->
+
+<!-- Makes the content scrollable -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <!-- The main layout for the activity -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+        <!-- The crop picker header -->
+        <TextView
+            android:id="@+id/forage_species_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/forage_species_header"
+            android:textSize="22sp"
+            android:padding="5dp"
+            android:textColor="#000"/>
+        <!--  crop picker -->
+        <LinearLayout
+            android:id="@+id/forage_species_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+            <!-- The first option -->
+            <TextView
+                android:id="@+id/forage_species1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forage_species1"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_left_button_unselected"
+                android:layout_weight="1"
+
+                android:textSize="20sp"/>
+            <!-- The second option -->
+            <TextView
+                android:id="@+id/forage_species2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forage_species2"
+                android:gravity="center"
+                android:textColor="@color/text_green"
+                android:padding="5dp"
+                android:background="@drawable/toggle_right_button_unselected"
+                android:layout_weight="1"
+                android:textSize="20sp"/>
+        </LinearLayout>
+        <!-- The soil type header -->
+        <TextView
+            android:id="@+id/soil_type_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/soil_type_header"
+            android:textSize="22sp"
+            android:padding="5dp"
+            android:textColor="#000"/>
+        <!-- The soil type picker -->
+        <LinearLayout
+            android:id="@+id/soil_type_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal">
+            <!-- The first option -->
+            <TextView
+                android:id="@+id/soil_type1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/soil_type1"
+                android:textColor="@color/text_green"
+                android:gravity="center"
+                android:background="@drawable/toggle_left_button_unselected"
+                android:layout_weight="1"
+                android:textSize="18sp"/>
+            <!-- The second option -->
+            <TextView
+                android:id="@+id/soil_type2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/soil_type2"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_right_button_unselected"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+
+        <!-- The stand density header -->
+        <TextView
+            android:id="@+id/stand_density_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/stand_density_header"
+            android:padding="5dp"
+            android:textSize="22sp"
+            android:textColor="#000"/>
+        <!-- The stand density picker -->
+        <LinearLayout
+            android:id="@+id/stand_dentsity_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <!-- The first option -->
+            <TextView
+                android:id="@+id/stand_density1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/stand_density1"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_left_button_unselected"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="18sp"/>
+            <!-- The second option -->
+            <TextView
+                android:id="@+id/stand_density2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/stand_density2"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_middle_button_unselected"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="18sp"/>
+            <!-- The third option -->
+            <TextView
+                android:id="@+id/stand_density3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/stand_density3"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_right_button_unselected"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="18sp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/density_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/density_info"
+
+            android:textSize="13sp"
+            android:textColor="#000"/>
+
+
+        <!-- The regrowth type header -->
+        <TextView
+            android:id="@+id/regrowth_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/regrowth_type_header"
+            android:textSize="22sp"
+            android:textColor="#000"/>
+        <!-- The soil type picker -->
+        <LinearLayout
+            android:id="@+id/regrowth_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="10dp"
+            android:layout_gravity="center_horizontal">
+            <!-- The first option -->
+            <TextView
+                android:id="@+id/regrowth1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/regrowth1"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_left_button_unselected"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="18sp"/>
+            <!-- The second option -->
+            <TextView
+                android:id="@+id/regrowth2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/regrowth2"
+                android:textColor="@color/text_green"
+                android:background="@drawable/toggle_right_button_unselected"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+        <!-- The output layout -->
+        <LinearLayout
+            android:id="@+id/output_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/output_background"
+            android:paddingTop="10dp"
+            android:orientation="vertical">
+            <!-- The header that tells the user what this box is for -->
+            <TextView
+                android:id="@+id/output_header"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="@string/output_header"
+                android:textColor="@color/LegumeRslt"
+                android:textSize="22sp"/>
+
+            <!-- The result -->
+            <TextView
+                android:id="@+id/output_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/result_default"
+                android:textColor="@color/LegumeRslt"
+                android:padding="10dp"
+                android:paddingBottom="10dp"
+                android:layout_weight="1"
+                android:textSize="50sp"/>
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</ScrollView>
